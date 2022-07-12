@@ -1,3 +1,4 @@
 import './style.css';
+import desktop from './desktop/desktop.js'
 
-console.log('hi');
+document.body.append(desktop.container);

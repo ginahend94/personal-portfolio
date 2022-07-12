@@ -1,3 +1,7 @@
 * {
     box-sizing: border-box;
 }
+
+.tooltip {
+    position: fixed;
+}
