@@ -84,7 +84,7 @@ export default (() => {
     const container = document.createElement('div');
 
     container.append(taskbar.container);
-    container.append(Apps.container)
+    container.append(Apps.container);
 
     return { container };
 })();
