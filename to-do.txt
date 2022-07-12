@@ -1,2 +1,8 @@
 TO DO
+loading page
+fix tooltip off page (if bottom-right is lower than page height etc)
+
+FANDANGLES
 custom cursor
+change clock from 12-24 hour
+interactive audio button

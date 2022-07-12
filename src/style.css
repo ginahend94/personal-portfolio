@@ -5,3 +5,21 @@
 .tooltip {
     position: fixed;
 }
+
+.taskbar {
+    position: fixed;
+    width: 100%;
+    border: solid 1px;
+    bottom: 0;
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+.app-tray {
+    flex: auto;
+}
+.clock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
