@@ -10,7 +10,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'GinaOS',
+            title: 'StarryOS | Gina Henderson - Web Developer',
         }),
     ],
     module: {

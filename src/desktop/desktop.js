@@ -51,7 +51,7 @@ const Apps = (() => {
         },
         {
             name: 'News',
-            appIcon: 'fa:newspaper-o',
+            appIcon: 'ion:newspaper-outline',
             tooltip: 'News app',
             classes: ['news'],
         }
