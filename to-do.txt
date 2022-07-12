@@ -6,3 +6,4 @@ FANDANGLES
 custom cursor
 change clock from 12-24 hour
 interactive audio button
+browser bookmarks (github, codepen, youtube, stackoverflow)
