@@ -1,5 +1,4 @@
 import taskbar from "./taskbar";
-// import appIcon from "../components/app-icon";
 import { createTooltip } from "../functions/tooltip";
 import icon from "../functions/icon";
 
@@ -82,6 +81,7 @@ const Apps = (() => {
 
 export default (() => {
     const container = document.createElement('div');
+    container.classList.add('desktop');
 
     container.append(taskbar.container);
     container.append(Apps.container);

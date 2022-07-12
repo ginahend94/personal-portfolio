@@ -1,5 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
+
+
 * {
     box-sizing: border-box;
+}
+
+:root {
+    --main-color: rgb(53, 0, 122);
+    --display-text: 'Comfortaa', cursive;
+    --main-text: 'Roboto', sans-serif;
+    font-family: var(--main-text);
 }
 
 @media only screen and (min-width: 776px) {
@@ -25,5 +35,80 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+}
+
+.splash {
+    position: fixed;
+    z-index: 99999;
+    width: 100vw;
+    height: 100vh;
+    bottom:0;
+    left: 0;
+    background-color: var(--main-color);
+    animation: wipeoff .5s 2s forwards;
+}
+
+.splash .logo {
+    position: absolute;
+    text-align: center;
+    width: fit-content;
+    top:30%;
+    margin: auto;
+    left:0;
+    right: 0;
+    font-size: 2rem;
+    color:rgb(255,255,255);
+    font-family: var(--display-text);
+    font-weight: bold;
+    letter-spacing: -3px;
+    animation: dropdown 1s ease-out forwards;
+}
+
+.splash .logo .iconify {
+    color:rgb(249, 172, 83);
+    position: absolute;
+}
+.splash .logo .iconify:first-child {
+    top:-1.5rem;
+    left: 1.5rem;
+    transform: rotate(45deg);
+}
+.splash .logo .iconify:nth-child(2) {
+    right: 22px;
+    color: white;
+    font-size: .5em;
+    top:8px;
+}
+.splash .logo .iconify:last-child {
+    bottom: -1rem;
+    right:.5rem;
+    font-size: .7em;
+    transform: rotate(15deg);
+}
+
+@keyframes dropdown {
+    0% {
+        top:-100%;
+        opacity: 0;
+    }
+    50% {
+        top:25%;
+        opacity: 0;
+    }
+    70% {
+        top:31%;
+    }
+    100% {
+        top:30%;
+        opacity: 1;
+    }
+}
+
+@keyframes wipeoff {
+    100% {
+        position: absolute;
+        height: 110vh;
+        opacity: 0;
     }
 }

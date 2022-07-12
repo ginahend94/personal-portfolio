@@ -1,5 +1,5 @@
 import 'normalize.css';
 import './style.css';
-import desktop from './desktop/desktop.js'
+import render from './functions/render';
 
-document.body.append(desktop.container);
+render();
