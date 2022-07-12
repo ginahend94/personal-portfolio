@@ -11,6 +11,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'StarryOS | Gina Henderson - Web Developer',
+            favicon: './src/images/star.svg',
         }),
     ],
     module: {
