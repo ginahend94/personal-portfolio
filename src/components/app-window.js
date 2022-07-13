@@ -26,5 +26,5 @@ export const appWindow = () => {
         false,
         true
     )
-    Modal.open(modal)
+   return Modal
 }

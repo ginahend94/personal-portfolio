@@ -15,48 +15,56 @@ const Apps = (() => {
             appIcon: 'jam:folder-f',
             tooltip: 'Resume',
             classes: ['documents'],
+            function: () => console.log('docs'),
         },
         {
             name: 'Browser',
             appIcon: 'wpf:globe-earth',
             tooltip: 'My work',
             classes: ['browser'],
+            function: () => console.log('web'),
         },
         {
             name: 'Games',
             appIcon: 'jam:folder-f',
             tooltip: 'Games',
             classes: ['games'],
+            function: () => console.log('games'),
         },
         {
             name: 'Recycling Bin',
             appIcon: 'wpf:full-trash',
             tooltip: 'Recycling Bin',
             classes: ['trash'],
+            function: () => console.log('trash'),
         },
         {
             name: 'Diddit',
             appIcon: 'mdi:checkbox-marked-outline',
             tooltip: 'To-Do List app',
             classes: ['diddit'],
+            function: () => console.log('todo'),
         },
         {
             name: 'Weather',
             appIcon: 'fluent:weather-partly-cloudy-day-48-filled',
             tooltip: 'Weather app',
             classes: ['weather'],
+            function: () => console.log('weather'),
         },
         {
             name: 'Music',
             appIcon: 'bxs:music',
             tooltip: 'Music player app',
             classes: ['music'],
+            function: () => console.log('music'),
         },
         {
             name: 'News',
             appIcon: 'ion:newspaper-outline',
             tooltip: 'News app',
             classes: ['news'],
+            function: () => console.log('news'),
         }
     ]
 
@@ -77,6 +85,7 @@ const Apps = (() => {
     apps.forEach(app => {
         const renderedAppIcon = appIcon(app.name, app.appIcon, app.tooltip, app.classes);
         container.append(renderedAppIcon);
+        renderedAppIcon.addEventListener('click', app.function);
     })
 
     return { container }
@@ -104,7 +113,8 @@ export default (() => {
     container.append(taskbar.container);
     container.append(nowPlaying());
     container.append(Apps.container);
-    // container.append(appWindow());
+    container.append(appWindow());
+    console.log(appWindow())
 
     // console.log(isMobile());
 
