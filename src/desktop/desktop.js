@@ -1,6 +1,9 @@
 import taskbar from "./taskbar";
 import { createTooltip } from "../functions/tooltip";
 import icon from "../functions/icon";
+import Modal from "../components/modal";
+import { appWindow } from "../components/app-window";
+import { nowPlaying } from "../components/now-playing";
 
 const Apps = (() => {
     const container = document.createElement('div');
@@ -79,12 +82,31 @@ const Apps = (() => {
     return { container }
 })();
 
+const isMobile = () => {
+    const mediaQuery = window.matchMedia('(max-width:775px)');
+    let mobile = mediaQuery.matches;
+    mediaQuery.addEventListener('change', e => {
+        if (e.matches) {
+            console.log('Mobile');
+        }
+        else {
+            console.log('Desktop');
+        }
+        mobile = e.matches;
+    })
+    return mobile;
+}
+
 export default (() => {
     const container = document.createElement('div');
     container.classList.add('desktop');
 
     container.append(taskbar.container);
+    container.append(nowPlaying());
     container.append(Apps.container);
+    // container.append(appWindow());
+
+    // console.log(isMobile());
 
     return { container };
 })();
