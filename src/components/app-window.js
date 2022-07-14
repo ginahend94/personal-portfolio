@@ -78,7 +78,10 @@ export default (() => {
         const explorer = fileExplorer('documents');
         const container = explorer.container;
         const resume = explorer.file('Resume.pdf', 'uiw:file-pdf', '2021-11-20', '565 KB');
-        explorer.main.append(resume);
+        const description = document.createElement('span');
+        description.classList.add('files-description');
+        description.textContent = '1 item, 565 KB used';
+        explorer.main.append(resume, description);
         resume.addEventListener('click', () => {
             openFile(GinaResume);
         })

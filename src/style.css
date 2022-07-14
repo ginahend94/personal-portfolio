@@ -247,6 +247,7 @@
         flex: auto;
         display: flex;
         color: white;
+        position: relative;
     }
 
     .file-explorer.documents-container header, .file-window header {
@@ -269,6 +270,14 @@
     .file .file-info {
         font-size: .8rem;
         color:rgba(255, 255, 255, 0.5)
+    }
+
+    .file-explorer .files-description {
+        position: absolute;
+        bottom: 0;
+        text-align: center;
+        width: 100%;
+        padding: 20px;
     }
     .modal-inner object {
         width: 100%;
