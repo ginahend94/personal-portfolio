@@ -152,7 +152,7 @@
         gap:5px;
     }
 
-    .app-icon {
+    .app-icon, .bookmark-icon {
         display: flex;
         flex-direction: column;
         width: fit-content;
@@ -194,6 +194,9 @@
     }
     .news .iconify {
         background-color: #16007A;
+    }
+    .contact .iconify {
+        background-color: #7A0045;
     }
 
     .modal {

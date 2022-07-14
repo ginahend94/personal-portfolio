@@ -78,6 +78,13 @@ const Apps = (() => {
             tooltip: 'News app',
             classes: ['news'],
             content: () => console.log('news'),
+        },
+        {
+            name: 'Contacts',
+            appIcon: 'ic:round-perm-contact-calendar',
+            tooltip: 'Contact me',
+            classes: ['contact'],
+            content: () => console.log('contact'),
         }
     ]
 

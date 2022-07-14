@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, min } from "date-fns";
 import icon from "../functions/icon";
 import Modal from "./modal";
 import GinaResume from '../files/Gina_Henderson_Resume.pdf';
@@ -80,15 +80,34 @@ const fileExplorer = (label) => {
     return { container, main, file }
 }
 
+const Pages = (() => {
+    const diddit = document.createElement('div');
+    diddit.textContent = 'Diddit!'
+    diddit.classList.add('content')
+    const raineyIceCream = document.createElement('div');
+    raineyIceCream.classList.add('content')
+    raineyIceCream.textContent = 'Rainey Ice Cream';
+    const minecraft = document.createElement('div');
+    minecraft.textContent = 'Minecraft Guide'
+    minecraft.classList.add('content')
+    const crunchyCookieCo = document.createElement('div');
+    crunchyCookieCo.textContent = 'Crunchy'
+    crunchyCookieCo.classList.add('content')
+    const caffeineClub = document.createElement('div');
+    caffeineClub.textContent = 'Caffeine Club'
+    caffeineClub.classList.add('content')
+    return { diddit, raineyIceCream, minecraft, crunchyCookieCo, caffeineClub };
+})()
+
 export default (() => {
 
-    const openFile = (url) => {
+    const openFile = (url, type, filename) => {
         const inner = document.createElement('div');
-        const pdf = document.createElement('object');
-        const header = AppHeader('documents/Resume.pdf');
-        inner.append(header.header, pdf);
-        pdf.setAttribute('data', url);
-        pdf.setAttribute('type', 'application/pdf');
+        const file = document.createElement('object');
+        const header = AppHeader(`documents/${filename}`);
+        inner.append(header.header, file);
+        file.setAttribute('data', url);
+        file.setAttribute('type', type);
 
         const modal = Modal.create(
             ['file-window'],
@@ -107,12 +126,29 @@ export default (() => {
         description.textContent = '1 item, 565 KB used';
         explorer.main.append(resume, description);
         resume.addEventListener('click', () => {
-            openFile(GinaResume);
+            openFile(GinaResume, 'application/pdf', 'Resume.pdf');
         })
         return { container }
     })();
 
     const browser = (() => {
+        const pageThumbnail = (page) => {
+            const container = document.createElement('div');
+            container.classList.add('bookmark-icon');
+            container.append(page.favicon);
+
+            const pageName = document.createElement('span');
+            container.append(pageName);
+            pageName.textContent = page.name;
+
+            container.addEventListener('click', () => {
+                openPage(page.content);
+            })
+
+            return container;
+        }
+
+
         const container = document.createElement('div');
 
         const header = BrowserElements.header;
@@ -120,7 +156,73 @@ export default (() => {
 
         const body = document.createElement('div');
 
+        const logo = document.createElement('header');
+        body.append(logo)
+        const logoText = document.createElement('span');
+        logoText.textContent = 'StarryOS Browser';
+        logo.append(icon('bi:moon-stars-fill', ['browser-logo']), logoText);
+
+        const work = document.createElement('div');
+        body.append(work);
+
+        const pages = [
+            {
+                name: 'Diddit - To-Do App',
+                favicon: icon('mdi:checkbox-marked-outline'),
+                content: Pages.diddit,
+            },
+            {
+                name: 'Rainey Ice Cream',
+                favicon: icon('fa-solid:ice-cream'),
+                content: Pages.raineyIceCream,
+            },
+            {
+                name: 'Minecraft Beginner\'s Guide',
+                favicon: icon('file-icons:minecraft'),
+                content: Pages.minecraft,
+            },
+            {
+                name: 'Crunchy Cookie Co.',
+                favicon: icon('la:cookie-bite'),
+                content: Pages.crunchyCookieCo,
+            },
+            {
+                name: 'Caffeine Club',
+                favicon: icon('fa-solid:coffee'),
+                content: Pages.caffeineClub,
+            }
+        ];
+
+        pages.forEach(page => {
+            const thumbnail = pageThumbnail(page);
+            work.append(thumbnail);
+            thumbnail.addEventListener('click', () => openPage(page.content));
+        })
+
         container.append(header, body, footer);
+
+        const openPage = content => {
+            if (body.contains(logo)) body.removeChild(logo);
+            if (body.contains(work)) body.removeChild(work);
+            body.append(content);
+        }
+
+        const closePage = () => {
+            const content = body.querySelector('.content')
+            if (content) {
+                body.removeChild(content);
+                body.append(logo, work);
+            }
+            else {
+                closeModal();
+            }
+        }
+
+        const backButton = footer.querySelector('.browser-back');
+        backButton.addEventListener('click', () => {
+            closePage();
+            backButton.removeEventListener('click', closePage);
+        });
 
         return { container }
     })();
