@@ -80,7 +80,7 @@ const Apps = (() => {
             content: () => console.log('news'),
         },
         {
-            name: 'Contacts',
+            name: 'Contact',
             appIcon: 'ic:round-perm-contact-calendar',
             tooltip: 'Contact me',
             classes: ['contact'],
