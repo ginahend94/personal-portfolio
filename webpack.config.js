@@ -24,7 +24,10 @@ module.exports = {
                 test: /.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
             },
-
+            {
+                test: /.pdf$/i,
+                use: 'file-loader',
+            },
             {
 
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,

@@ -1,9 +1,12 @@
-import {dragModal} from "../functions/drag";
+import { dragModal } from "../functions/drag";
+import generateId from "../functions/generateId";
 
 export default (() => {
     const Modal = (classes = [], modalBody, confirmFunction = () => Modal.close(modal), confirmText = 'OK', showCancel = false, showModalBg = false, draggable = false) => {
+        const id = generateId();
         const modalContainer = document.createElement('div');
         modalContainer.classList.add('modal-container');
+        modalContainer.dataset.id = id;
         const modalBg = document.createElement('div');
         modalBg.classList.add('modal-bg');
         if (showModalBg) modalContainer.append(modalBg);
@@ -47,7 +50,9 @@ export default (() => {
 
         if (draggable) dragModal(modalContainer);
 
-        return modalContainer;
+        const getId = () => id;
+
+        return { modalContainer, id:getId };
     };
 
     const closeModal = modal => {
@@ -55,7 +60,7 @@ export default (() => {
     };
     
     const openModal = modal => {
-        document.body.append(modal);
+        document.body.append(modal.modalContainer);
     };
 
     return { create:Modal, open:openModal, close:closeModal }

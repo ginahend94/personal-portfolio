@@ -10,7 +10,6 @@
     --display-text: 'Comfortaa', cursive;
     --main-text: 'Roboto', sans-serif;
     font-family: var(--main-text);
-    cursor:url('./images/star.svg');
 }
 
 .desktop {
@@ -206,6 +205,10 @@
         border: solid 1px;
         display: flex;
     }
+    .modal-inner {
+        display: flex;
+        flex-direction: column;
+    }
 
     .now-playing.container {
         /* border: solid 1px red; */
@@ -226,7 +229,7 @@
         flex-direction: column;
     }
 
-    .file-explorer header {
+    .window-header {
         font-size: 1.1rem;
         padding: 10px;
         color: white;
@@ -234,7 +237,7 @@
         align-items: center;
         gap:10px;
     }
-    .file-explorer .back-button {
+    .modal .back-button {
         font-size:2rem;
         cursor: pointer;
     }
@@ -246,7 +249,7 @@
         color: white;
     }
 
-    .file-explorer.documents-container header {
+    .file-explorer.documents-container header, .file-window header {
         background-color: #7A0045;
     }
 
@@ -266,6 +269,10 @@
     .file .file-info {
         font-size: .8rem;
         color:rgba(255, 255, 255, 0.5)
+    }
+    .modal-inner object {
+        width: 100%;
+        flex:auto;
     }
 }
 
