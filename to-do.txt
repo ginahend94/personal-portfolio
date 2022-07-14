@@ -1,6 +1,6 @@
 TO DO
-loading page
 fix tooltip off page (if bottom-right is lower than page height etc)
+remove phone number from resume
 
 FANDANGLES
 custom cursor
@@ -8,3 +8,7 @@ change clock from 12-24 hour
 interactive audio button
 browser bookmarks (github, codepen, youtube, stackoverflow)
 sort desktop icons
+app open animation
+
+DONE
+splash page

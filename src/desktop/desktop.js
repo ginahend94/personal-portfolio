@@ -2,12 +2,25 @@ import taskbar from "./taskbar";
 import { createTooltip } from "../functions/tooltip";
 import icon from "../functions/icon";
 import Modal from "../components/modal";
-import { appWindow } from "../components/app-window";
+import appWindow from "../components/app-window";
 import { nowPlaying } from "../components/now-playing";
 
 const Apps = (() => {
     const container = document.createElement('div');
     container.classList.add('apps-container');
+
+    const openApp = (inner) => {
+        const modal = Modal.create(
+            [],
+            inner,
+            () => Modal.close(modal),
+            'k',
+            false,
+            false,
+            true
+        )
+        Modal.open(modal);
+    }
 
     const apps = [
         {
@@ -15,56 +28,56 @@ const Apps = (() => {
             appIcon: 'jam:folder-f',
             tooltip: 'Resume',
             classes: ['documents'],
-            function: () => console.log('docs'),
+            content: appWindow.documents,
         },
         {
             name: 'Browser',
             appIcon: 'wpf:globe-earth',
             tooltip: 'My work',
             classes: ['browser'],
-            function: () => console.log('web'),
+            content: () => console.log('web'),
         },
         {
             name: 'Games',
             appIcon: 'jam:folder-f',
             tooltip: 'Games',
             classes: ['games'],
-            function: () => console.log('games'),
+            content: () => console.log('games'),
         },
         {
             name: 'Recycling Bin',
             appIcon: 'wpf:full-trash',
             tooltip: 'Recycling Bin',
             classes: ['trash'],
-            function: () => console.log('trash'),
+            content: () => console.log('trash'),
         },
         {
             name: 'Diddit',
             appIcon: 'mdi:checkbox-marked-outline',
             tooltip: 'To-Do List app',
             classes: ['diddit'],
-            function: () => console.log('todo'),
+            content: () => console.log('todo'),
         },
         {
             name: 'Weather',
             appIcon: 'fluent:weather-partly-cloudy-day-48-filled',
             tooltip: 'Weather app',
             classes: ['weather'],
-            function: () => console.log('weather'),
+            content: () => console.log('weather'),
         },
         {
             name: 'Music',
             appIcon: 'bxs:music',
             tooltip: 'Music player app',
             classes: ['music'],
-            function: () => console.log('music'),
+            content: () => console.log('music'),
         },
         {
             name: 'News',
             appIcon: 'ion:newspaper-outline',
             tooltip: 'News app',
             classes: ['news'],
-            function: () => console.log('news'),
+            content: () => console.log('news'),
         }
     ]
 
@@ -85,7 +98,7 @@ const Apps = (() => {
     apps.forEach(app => {
         const renderedAppIcon = appIcon(app.name, app.appIcon, app.tooltip, app.classes);
         container.append(renderedAppIcon);
-        renderedAppIcon.addEventListener('click', app.function);
+        renderedAppIcon.addEventListener('click', () => openApp(app.content));
     })
 
     return { container }
@@ -113,10 +126,6 @@ export default (() => {
     container.append(taskbar.container);
     container.append(nowPlaying());
     container.append(Apps.container);
-    container.append(appWindow());
-    console.log(appWindow())
-
-    // console.log(isMobile());
 
     return { container };
 })();
