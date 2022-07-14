@@ -35,7 +35,7 @@ const Apps = (() => {
             appIcon: 'wpf:globe-earth',
             tooltip: 'My work',
             classes: ['browser'],
-            content: () => console.log('web'),
+            content: appWindow.browser,
         },
         {
             name: 'Games',

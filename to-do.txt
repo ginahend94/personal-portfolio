@@ -3,6 +3,7 @@ fix tooltip off page (if bottom-right is lower than page height etc)
 remove phone number from resume
 
 FANDANGLES
+lmgtfy style browser splash
 custom cursor
 change clock from 12-24 hour
 interactive audio button
