@@ -26,6 +26,9 @@ const BrowserElements = (() => {
     const searchBar = document.createElement('div');
     searchBar.classList.add('search-bar');
     searchBar.setAttribute('contenteditable', true);
+    searchBar.setAttribute('spellcheck', false);
+    searchBar.textContent = 'My Work';
+    searchBar.addEventListener('blur', () => searchBar.textContent = 'My Work');
     const refresh = icon('ic:round-refresh', ['refresh']);
     refresh.classList.add('refresh');
     header.append(lock, searchBar, refresh);
@@ -141,13 +144,23 @@ export default (() => {
             container.append(pageName);
             pageName.textContent = page.name;
 
-            container.addEventListener('click', () => {
-                openPage(page.content);
-            })
-
+            container.content = page.content;
+            console.log(container.content)
+            container.dataset.type = page.type;
             return container;
         }
 
+        const setPageLink = (thumbnail) => {
+            if (thumbnail.dataset.type == 'page') {
+                thumbnail.addEventListener('click', () => openPage(thumbnail.content));
+            } else if (thumbnail.dataset.type == 'link') {
+                const link = document.createElement('a');
+                link.setAttribute('href', thumbnail.content);
+                link.target = '_blank';
+                link.append(thumbnail);
+                return link;
+            }
+        }
 
         const container = document.createElement('div');
 
@@ -155,6 +168,7 @@ export default (() => {
         const footer = BrowserElements.footer;
 
         const body = document.createElement('div');
+        body.classList.add('browser-body');
 
         const logo = document.createElement('header');
         body.append(logo)
@@ -164,39 +178,87 @@ export default (() => {
 
         const work = document.createElement('div');
         body.append(work);
+        work.classList.add('work');
+        const h2 = document.createElement('h2');
+        work.append(h2);
+        h2.textContent = 'My Work';
 
         const pages = [
             {
                 name: 'Diddit - To-Do App',
-                favicon: icon('mdi:checkbox-marked-outline'),
+                favicon: icon('mdi:checkbox-marked-outline', ['diddit']),
                 content: Pages.diddit,
+                type: 'page',
             },
             {
                 name: 'Rainey Ice Cream',
-                favicon: icon('fa-solid:ice-cream'),
+                favicon: icon('fa-solid:ice-cream', ['rainey']),
                 content: Pages.raineyIceCream,
+                type: 'page',
             },
             {
                 name: 'Minecraft Beginner\'s Guide',
-                favicon: icon('file-icons:minecraft'),
+                favicon: icon('file-icons:minecraft', ['minecraft']),
                 content: Pages.minecraft,
+                type: 'page',
             },
             {
                 name: 'Crunchy Cookie Co.',
-                favicon: icon('la:cookie-bite'),
+                favicon: icon('la:cookie-bite', ['cookie']),
                 content: Pages.crunchyCookieCo,
+                type: 'page',
             },
             {
                 name: 'Caffeine Club',
-                favicon: icon('fa-solid:coffee'),
+                favicon: icon('fa-solid:coffee', ['caffeine']),
                 content: Pages.caffeineClub,
+                type: 'page',
             }
         ];
 
         pages.forEach(page => {
             const thumbnail = pageThumbnail(page);
+            setPageLink(thumbnail);
             work.append(thumbnail);
-            thumbnail.addEventListener('click', () => openPage(page.content));
+        })
+
+        const bookmarkList = [
+            {
+                name: 'GitHub',
+                favicon: icon('logos:github-icon'),
+                content: 'https://github.com/',
+                type: 'link'
+            },
+            {
+                name: 'Codepen',
+                favicon: icon('logos:codepen-icon'),
+                content: 'https://codepen.io',
+                type: 'link'
+            },
+            {
+                name: 'YouTube',
+                favicon: icon('logos:youtube-icon'),
+                content: 'https://youtube.com',
+                type: 'link'
+            },
+            {
+                name: 'Stack Overflow',
+                favicon: icon('logos:stackoverflow-icon'),
+                content: 'https://stackoverflow.com',
+                type: 'link'
+            }
+        ]
+
+        const bookmarks = document.createElement('div');
+        body.append(bookmarks);
+        bookmarks.classList.add('bookmarks');
+        const bookmarksH2 = document.createElement('h2');
+        bookmarks.append(bookmarksH2);
+        bookmarksH2.textContent = 'Bookmarks';
+
+        bookmarkList.forEach(bookmark => {
+            const thumbnail = pageThumbnail(bookmark);
+            bookmarks.append(setPageLink(thumbnail));
         })
 
         container.append(header, body, footer);
@@ -204,6 +266,7 @@ export default (() => {
         const openPage = content => {
             if (body.contains(logo)) body.removeChild(logo);
             if (body.contains(work)) body.removeChild(work);
+            if (body.contains(bookmarks)) body.removeChild(bookmarks)
             body.append(content);
         }
 
@@ -211,7 +274,7 @@ export default (() => {
             const content = body.querySelector('.content')
             if (content) {
                 body.removeChild(content);
-                body.append(logo, work);
+                body.append(logo, work, bookmarks);
             }
             else {
                 closeModal();

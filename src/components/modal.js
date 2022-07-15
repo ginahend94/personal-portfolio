@@ -24,30 +24,6 @@ export default (() => {
         modal.append(modalBody);
         modalBody.classList.add('modal-inner');
 
-        // const buttons = document.createElement('div');
-        // modal.append(buttons);
-        // buttons.classList.add('buttons');
-        // const confirm = document.createElement('button');
-        // buttons.append(confirm);
-        // confirm.textContent = confirmText;
-        // confirm.addEventListener('click', confirmFunction);
-
-        // if (showCancel) {
-        //     const cancel = document.createElement('button');
-        //     buttons.append(cancel);
-        //     cancel.classList.add('cancel');
-        //     cancel.textContent = 'Cancel';
-        //     cancel.addEventListener('click', closeModal.bind(cancel, modalContainer));
-        // }
-
-        // modalBg.addEventListener('click', closeModal.bind(modalBg, modalContainer));
-        modalContainer.addEventListener('keydown', e => {
-            if (e.key !== 'Enter') return;
-            if (document.activeElement.type == 'textarea') return;
-            e.preventDefault();
-            confirmFunction();
-        })
-
         if (draggable) dragModal(modalContainer);
 
         const getId = () => id;

@@ -10,6 +10,7 @@
     --display-text: 'Comfortaa', cursive;
     --main-text: 'Roboto', sans-serif;
     font-family: var(--main-text);
+    background-color: var(--main-color);
 }
 
 .desktop {
@@ -108,9 +109,9 @@
     .desktop {
         display: flex;
         flex-direction: column;
-        color:white;
+        color: white;
         font-family: var(--display-text);
-        text-shadow: 2px 2px rgba(0,0,0,.5);
+        text-shadow: 2px 2px rgba(0, 0, 0, .5);
     }
 
     .taskbar {
@@ -127,9 +128,9 @@
         display: flex;
         flex-direction: column;
         padding: 10px;
-        color:white;
+        color: white;
         font-family: var(--display-text);
-        text-shadow: 2px 2px rgba(0,0,0,.5);
+        text-shadow: 2px 2px rgba(0, 0, 0, .5);
         user-select: none;
     }
 
@@ -137,8 +138,13 @@
         font-size: 3rem;
     }
 
-    .taskbar > :not(.clock) {
+    .taskbar> :not(.clock) {
         display: none;
+    }
+
+    a {
+        color:inherit;
+        text-decoration: none;
     }
 
     .apps-container {
@@ -149,78 +155,91 @@
         justify-content: space-evenly;
         align-content: end;
         align-items: start;
-        gap:5px;
+        gap: 5px;
     }
 
-    .app-icon, .bookmark-icon {
+    .app-icon,
+    .bookmark-icon {
         display: flex;
         flex-direction: column;
         width: fit-content;
         font-size: .9rem;
         align-items: center;
         justify-content: start;
-        gap:5px;
+        gap: 5px;
         width: 90px;
         text-align: center;
         cursor: pointer;
     }
-    
-    .app-icon .iconify {
+
+    .app-icon .iconify,
+    .bookmark-icon .iconify {
         /* border: solid 1px black; */
         font-size: 2.5rem;
         padding: 5px;
         border-radius: 5px;
     }
+
     .documents .iconify {
         background-color: #7A0045;
     }
+
     .browser .iconify {
         background-color: #7A007A;
     }
+
     .games .iconify {
         background-color: #68007A;
     }
+
     .trash .iconify {
         background-color: #5E007A;
     }
+
     .diddit .iconify {
         background-color: #52007A;
     }
+
     .weather .iconify {
         background-color: #45007A;
     }
+
     .music .iconify {
         background-color: #35007A;
     }
+
     .news .iconify {
         background-color: #16007A;
     }
+
     .contact .iconify {
         background-color: #7A0045;
     }
 
     .modal {
-        position:absolute;
-        top:0;
-        left:0;
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
         border: solid 1px;
         display: flex;
     }
+
     .modal-inner {
         display: flex;
         flex-direction: column;
+        width: 100%;
     }
 
     .now-playing.container {
-        /* border: solid 1px red; */
-        width:200px;
-        height:200px;
+        width: 200px;
+        height: 200px;
         border-radius: 5px;
-        margin:10px;background: rgb(94,0,122);
-        background: linear-gradient(90deg, rgba(94,0,122,1) 20%, rgba(69,0,122,1) 100%);
-        box-shadow: 2px 2px 5px rgba(0,0,0,.5);
+        margin: 10px;
+        background: rgb(94, 0, 122);
+        background: linear-gradient(90deg, rgba(94, 0, 122, 1) 20%, rgba(69, 0, 122, 1) 100%);
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -238,10 +257,11 @@
         color: white;
         display: flex;
         align-items: center;
-        gap:10px;
+        gap: 10px;
     }
+
     .modal .back-button {
-        font-size:2rem;
+        font-size: 2rem;
         cursor: pointer;
     }
 
@@ -253,7 +273,8 @@
         position: relative;
     }
 
-    .file-explorer.documents-container header, .file-window header {
+    .file-explorer.documents-container header,
+    .file-window header {
         background-color: #7A0045;
     }
 
@@ -267,12 +288,14 @@
         margin: 20px;
         cursor: pointer;
     }
+
     .file .iconify {
         font-size: 3rem;
     }
+
     .file .file-info {
         font-size: .8rem;
-        color:rgba(255, 255, 255, 0.5)
+        color: rgba(255, 255, 255, 0.5)
     }
 
     .file-explorer .files-description {
@@ -282,9 +305,103 @@
         width: 100%;
         padding: 20px;
     }
+
     .modal-inner object {
         width: 100%;
-        flex:auto;
+        flex: auto;
+    }
+
+    /* .modal-inner>*[class*="browser"] .iconify {
+        
+    } */
+
+
+
+    .browser-header,
+    .browser-footer {
+        background-color: rgb(36, 36, 36);
+        padding: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .browser-header .iconify,
+    .browser-footer .iconify {
+        font-size: 24px;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .browser-header .search-bar {
+        flex: auto;
+        background-color: rgb(0, 0, 0);
+        padding: 5px;
+        color: rgba(255, 255, 255, .5);
+        border-radius: 5px;
+    }
+
+    .browser-footer {
+        justify-content: space-around;
+        padding: 15px;
+    }
+
+    .browser-body {
+        flex: 1;
+        background-color: #35007A;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        color: white;
+    }
+
+    .browser-body header {
+        font-family: var(--display-text);
+        display: flex;
+        padding: 20px;
+        font-size: 1.5rem;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .browser-logo {
+        color: rgb(249, 172, 83);
+    }
+
+    .browser-body h2 {
+        margin: 5px;
+        font-weight: 400;
+        grid-column: 1 / -1;
+        border-bottom: solid 2px;
+        padding-bottom: 5px;
+        width: 100%;
+    }
+
+    .work,
+    .bookmarks {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 90px);
+        padding: 10px;
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .bookmark-icon .iconify {
+        background-color: rgb(194, 194, 194);
+    }
+    .iconify.diddit {
+        color: rgb(155, 125, 232);
+    }
+    .iconify.rainey {
+        color:rgb(107, 144, 128)
+    }
+    .iconify.minecraft {
+        color:purple
+    }
+    .iconify.cookie {
+        color:rgb(133, 54, 54)
+    }
+    .caffeine.iconify {
+        color: rgb(4, 58, 80);
     }
 }
 
