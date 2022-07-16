@@ -345,7 +345,7 @@
         display: flex;
         flex-direction: column;
         overflow-y: auto;
-        color: white;
+        color: rgba(255,255,255,.7);
     }
 
     .browser-body > header {
@@ -365,7 +365,7 @@
         margin: 5px;
         font-weight: 400;
         grid-column: 1 / -1;
-        border-bottom: solid 2px;
+        border-bottom: solid 1px;
         padding-bottom: 5px;
         width: 100%;
     }
@@ -450,6 +450,10 @@
     .content.rainey {
         background-color:rgb(81, 138, 113)
     }
+    .content.minecraft {
+        background-color: rgb(122, 0, 69);
+    }
+    
 }
 
 /* DESKTOP */
