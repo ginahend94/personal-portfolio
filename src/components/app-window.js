@@ -6,7 +6,7 @@ import Diddit from '../images/diddit.png';
 import Rainey from '../images/rainey.png';
 import Minecraft from '../images/minecraft.png';
 import GinaTharinIcon from '../images/gina-tharin-favicon.png';
-import GinaTharin from '../images/gina-tharin.png';
+import GinaTharin from '../images/ginatharin.png';
 
 const closeModal = () => Modal.close(document.querySelector('.modal-container'));
 const AppHeader = (label) => {
@@ -151,16 +151,14 @@ const Pages = (() => {
         container.classList.add('content');
         return container
     })()
-    const ginaTharinImg = new Image();
-    ginaTharinImg.src = GinaTharin;
     const ginaTharin = content(
         'gina-tharin',
-        ginaTharinImg,
+        GinaTharin,
         `<a href="https://ginatharin.com/" target="_blank">GinaTharin.com</a> is the official website for my side-project as a Singer-Songwriter. The site is built with HTML, CSS, and Vanilla Javascript. The site also incorporates the Twitter API to display tweets in real-time.`,
         'Gina Tharin',
         'Official Artist Website',
     )
-    
+
     return { diddit, raineyIceCream, minecraft, caffeineClub, ginaTharin };
 })()
 
