@@ -8,9 +8,7 @@ export default () => {
     const loadedBefore = load('loadedBefore') ? load('loadedBefore') : false;
 
     if (!loadedBefore) {
-        body.append(splash.container)
-        console.log(loadedBefore);
-        console.log('First time!');
+        body.append(splash.container);
         save('loadedBefore', true);
         setTimeout(() => body.removeChild(splash.container), 4000);
     }

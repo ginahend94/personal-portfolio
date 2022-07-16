@@ -2,6 +2,10 @@ import { format, min } from "date-fns";
 import icon from "../functions/icon";
 import Modal from "./modal";
 import GinaResume from '../files/Gina_Henderson_Resume.pdf';
+import Diddit from '../images/diddit.png';
+import Rainey from '../images/rainey.png';
+import Minecraft from '../images/minecraft.png';
+import GinaTharinIcon from '../images/gina-tharin-favicon.png';
 
 const closeModal = () => Modal.close(document.querySelector('.modal-container'));
 const AppHeader = (label) => {
@@ -84,22 +88,76 @@ const fileExplorer = (label) => {
 }
 
 const Pages = (() => {
-    const diddit = document.createElement('div');
-    diddit.textContent = 'Diddit!'
-    diddit.classList.add('content')
-    const raineyIceCream = document.createElement('div');
-    raineyIceCream.classList.add('content')
-    raineyIceCream.textContent = 'Rainey Ice Cream';
-    const minecraft = document.createElement('div');
-    minecraft.textContent = 'Minecraft Guide'
-    minecraft.classList.add('content')
-    const crunchyCookieCo = document.createElement('div');
-    crunchyCookieCo.textContent = 'Crunchy'
-    crunchyCookieCo.classList.add('content')
-    const caffeineClub = document.createElement('div');
-    caffeineClub.textContent = 'Caffeine Club'
-    caffeineClub.classList.add('content')
-    return { diddit, raineyIceCream, minecraft, crunchyCookieCo, caffeineClub };
+    const content = (name, img, desc, title, subtitle) => {
+        const container = document.createElement('div');
+        container.classList.add('content', name);
+
+        const header = document.createElement('header');
+        container.append(header);
+        const h2 = document.createElement('h2');
+        header.append(h2);
+        h2.textContent = title;
+        const h3 = document.createElement('h3');
+        header.append(h3);
+        h3.textContent = subtitle;
+
+        const image = new Image();
+        image.src = img;
+        image.classList.add(name);
+
+        container.append(image);
+
+        const description = document.createElement('p');
+        description.innerHTML = desc;
+
+        container.append(description);
+
+        return container
+    }
+
+    const diddit = content(
+        'diddit',
+        Diddit,
+        `<a href="https://ginahend94.github.io/to-do-list" target="_blank">Diddit</a> is a CRUD to-do list app that utilizes local storage to maintain the user's unput. It also features UI customization features.`,
+        'Diddit',
+        'To-Do List Web App'
+    );
+
+    const raineyIceCream = content(
+        'rainey',
+        Rainey,
+        `<a href="https://ginahend94.github.io/rainey-ice-cream" target="_blank">Rainey Ice Cream</a> is a single-page mock website for the fictional restaurant Rainey Ice Cream. The site is built with HTML, CSS, and Vanilla Javascript utilizing Webpack. The site also has a custom Locations tab that uses the Mapbox API and GeoJSON to create fake worldwide locations for the restaurant.`,
+        'Rainey Ice Cream',
+        'Restaurant Website'
+    )
+
+    const minecraft = content(
+        'minecraft',
+        Minecraft,
+        `<a href="https://ginahend94.github.io/minecraft-guide" target = "_blank">Gina's Unofficial Minecraft Beginner's Guide</a> is a responsive website to teach novice Minecraft players how to beat the game. Vanilla CSS was used to style the page.`,
+        'Gina\'s Unofficial Minecraft Guide',
+        'Instructional Website'
+    )
+    // const crunchyCookieCo = (() => {
+    //     const container = document.createElement('div');
+    //     container.textContent = 'Crunchy'
+    //     container.classList.add('content')
+    //     return container
+    // })()
+    const caffeineClub = (() => {
+        const container = document.createElement('div');
+        container.textContent = 'Caffeine Club'
+        container.classList.add('content');
+        return container
+    })()
+    const ginaTharin = (() => {
+        const container = document.createElement('div');
+        container.textContent = 'Gina Tharin'
+        container.classList.add('content');
+        return container
+    })()
+    
+    return { diddit, raineyIceCream, minecraft, caffeineClub, ginaTharin };
 })()
 
 export default (() => {
@@ -145,7 +203,6 @@ export default (() => {
             pageName.textContent = page.name;
 
             container.content = page.content;
-            console.log(container.content)
             container.dataset.type = page.type;
             return container;
         }
@@ -183,6 +240,10 @@ export default (() => {
         work.append(h2);
         h2.textContent = 'My Work';
 
+        const ginaTharinIcon = new Image();
+        ginaTharinIcon.src = GinaTharinIcon;
+        ginaTharinIcon.classList.add('iconify');
+
         const pages = [
             {
                 name: 'Diddit - To-Do App',
@@ -203,11 +264,17 @@ export default (() => {
                 type: 'page',
             },
             {
-                name: 'Crunchy Cookie Co.',
-                favicon: icon('la:cookie-bite', ['cookie']),
-                content: Pages.crunchyCookieCo,
+                name: 'Gina Tharin Official Artist Website',
+                favicon: ginaTharinIcon,
+                content: Pages.ginaTharin,
                 type: 'page',
             },
+            // {
+            //     name: 'Crunchy Cookie Co.',
+            //     favicon: icon('la:cookie-bite', ['cookie']),
+            //     content: Pages.crunchyCookieCo,
+            //     type: 'page',
+            // },
             {
                 name: 'Caffeine Club',
                 favicon: icon('fa-solid:coffee', ['caffeine']),
@@ -230,7 +297,7 @@ export default (() => {
                 type: 'link'
             },
             {
-                name: 'Codepen',
+                name: 'CodePen',
                 favicon: icon('logos:codepen-icon'),
                 content: 'https://codepen.io',
                 type: 'link'
