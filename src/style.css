@@ -456,6 +456,9 @@
     .content.gina-tharin {
         background-color:rgb(11, 79, 134);
     }
+    .content.caffeine {
+        background-color: red;
+    }
 }
 
 /* DESKTOP */

@@ -7,6 +7,7 @@ import Rainey from '../images/rainey.png';
 import Minecraft from '../images/minecraft.png';
 import GinaTharinIcon from '../images/gina-tharin-favicon.png';
 import GinaTharin from '../images/ginatharin.png';
+import Caffeine from '.../images/caffeine.png';
 
 const closeModal = () => Modal.close(document.querySelector('.modal-container'));
 const AppHeader = (label) => {
@@ -139,18 +140,13 @@ const Pages = (() => {
         'Gina\'s Unofficial Minecraft Guide',
         'Instructional Website'
     )
-    // const crunchyCookieCo = (() => {
-    //     const container = document.createElement('div');
-    //     container.textContent = 'Crunchy'
-    //     container.classList.add('content')
-    //     return container
-    // })()
-    const caffeineClub = (() => {
-        const container = document.createElement('div');
-        container.textContent = 'Caffeine Club'
-        container.classList.add('content');
-        return container
-    })()
+    const caffeineClub = content(
+        'caffeine',
+        Caffeine,
+        `<a href="https://ginahend94.github.io/sign-up-form" target="_blank">Caffeine Club</a> is a mock sign-up form. The site uses Vanilla Javascript for client-side form validation.`,
+        'Caffeine Club',
+        'Sign-up Form'
+    )
     const ginaTharin = content(
         'gina-tharin',
         GinaTharin,
