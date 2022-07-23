@@ -165,7 +165,7 @@ const Pages = (() => {
     const minecraft = content(
         'minecraft',
         Minecraft,
-        `<a href="https://ginahenderson.me/minecraft-guide" target = "_blank">Gina's Unofficial Minecraft Beginner's Guide</a> is a responsive website to teach novice Minecraft players how to beat the game. Vanilla CSS was used to style the page.`,
+        '<a href="https://ginahenderson.me/minecraft-guide" target = "_blank">Gina\'s Unofficial Minecraft Beginner\'s Guide</a> is a responsive website to teach novice Minecraft players how to beat the game. Vanilla CSS was used to style the page.',
         'Gina\'s Unofficial Minecraft Guide',
         'Instructional Website'
     )
@@ -184,19 +184,12 @@ const Pages = (() => {
         'Official Artist Website',
     )
 
-    const zenBalloons = app('https://ginahenderson.me/zen-balloons');
-    const ticTacToe = app('https://ginahenderson.me/tic-tac-toe');
-    const rockPaperScissors = app('https://ginahenderson.me/rock-paper-scissors');
-
     return {
         diddit,
         raineyIceCream,
         minecraft,
         caffeineClub,
         ginaTharin,
-        zenBalloons,
-        ticTacToe,
-        rockPaperScissors,
     };
 })()
 
@@ -412,6 +405,7 @@ export default (() => {
         const container = explorer.container('games');
         const games = [
             {
+                name:'Zen Balloons',
                 file: explorer.file(
                     'Zen Balloons',
                     'icon-park-solid:game-handle',
@@ -420,14 +414,16 @@ export default (() => {
                 link: 'zen-balloons',
             },
             {
+                name: 'Tic-Tac-Toe',
                 file: explorer.file(
-                    'Tic Tac Toe',
+                    'Tic-Tac-Toe',
                     'icon-park-solid:game-handle',
                     '2022-04-17', ''
                 ),
                 link: 'tic-tac-toe',
             },
             {
+                name:'Rock Paper Scissors',
                 file: explorer.file(
                     'Rock Paper Scissors',
                     'icon-park-solid:game-handle',
@@ -439,7 +435,11 @@ export default (() => {
 
         games.forEach((game) => {
             game.file.addEventListener('click', () => {
-                openFile(`https://ginahenderson.me/${game.link}`, 'text/html', 'Games')
+                openFile(
+                    `https://ginahenderson.me/${game.link}`,
+                    'text/html',
+                    `Games/${game.name}`
+                )
             })
             container.main.append(game.file);
         })
