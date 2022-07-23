@@ -325,7 +325,7 @@ export default (() => {
         const openPage = content => {
             if (body.contains(logo)) body.removeChild(logo);
             if (body.contains(work)) body.removeChild(work);
-            if (body.contains(bookmarks)) body.removeChild(bookmarks)
+            if (body.contains(bookmarks)) body.removeChild(bookmarks);
             body.append(content);
         }
 
@@ -369,7 +369,7 @@ export default (() => {
         )
         const description = document.createElement('span');
         description.classList.add('files-description');
-        description.textContent = '1 item';
+        description.textContent = '3 items';
         explorer.main.append(zenBalloons, rockPaperScissors, ticTacToe, description);
 
         return { container }

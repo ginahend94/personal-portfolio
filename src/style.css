@@ -287,6 +287,7 @@
         gap: 2px;
         margin: 20px;
         cursor: pointer;
+        text-align: center;
     }
 
     .file .iconify {
