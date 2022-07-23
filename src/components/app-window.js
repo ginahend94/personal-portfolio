@@ -1,4 +1,4 @@
-import { format, min } from "date-fns";
+import { format } from "date-fns";
 import icon from "../functions/icon";
 import Modal from "./modal";
 import GinaResume from '../files/Gina_Henderson_Resume.pdf';
@@ -117,10 +117,18 @@ const Pages = (() => {
         return container
     }
 
+    const app = (link) => {
+        const obj = document.createElement('object');
+        obj.setAttribute('data', link);
+        obj.setAttribute('type', 'text/html');
+        obj.classList.add('app-screen');
+        return obj;
+    }
+
     const diddit = content(
         'diddit',
         Diddit,
-        `<a href="https://ginahend94.github.io/to-do-list" target="_blank">Diddit</a> is a CRUD to-do list app that utilizes local storage to maintain the user's unput. It also features UI customization features.`,
+        `<a href="https://ginahenderson.me/to-do-list" target="_blank">Diddit</a> is a CRUD to-do list app that utilizes local storage to maintain the user's unput. It also features UI customization features.`,
         'Diddit',
         'To-Do List Web App'
     );
@@ -128,7 +136,7 @@ const Pages = (() => {
     const raineyIceCream = content(
         'rainey',
         Rainey,
-        `<a href="https://ginahend94.github.io/rainey-ice-cream" target="_blank">Rainey Ice Cream</a> is a single-page mock website for the fictional restaurant Rainey Ice Cream. The site is built with HTML, CSS, and Vanilla Javascript utilizing Webpack. The site also has a custom Locations tab that uses the Mapbox API and GeoJSON to create fake worldwide locations for the restaurant.`,
+        `<a href="https://ginahenderson.me/rainey-ice-cream" target="_blank">Rainey Ice Cream</a> is a single-page mock website for the fictional restaurant Rainey Ice Cream. The site is built with HTML, CSS, and Vanilla Javascript utilizing Webpack. The site also has a custom Locations tab that uses the Mapbox API and GeoJSON to create fake worldwide locations for the restaurant.`,
         'Rainey Ice Cream',
         'Restaurant Website'
     )
@@ -136,14 +144,14 @@ const Pages = (() => {
     const minecraft = content(
         'minecraft',
         Minecraft,
-        `<a href="https://ginahend94.github.io/minecraft-guide" target = "_blank">Gina's Unofficial Minecraft Beginner's Guide</a> is a responsive website to teach novice Minecraft players how to beat the game. Vanilla CSS was used to style the page.`,
+        `<a href="https://ginahenderson.me/minecraft-guide" target = "_blank">Gina's Unofficial Minecraft Beginner's Guide</a> is a responsive website to teach novice Minecraft players how to beat the game. Vanilla CSS was used to style the page.`,
         'Gina\'s Unofficial Minecraft Guide',
         'Instructional Website'
     )
     const caffeineClub = content(
         'caffeine',
         Caffeine,
-        `<a href="https://ginahend94.github.io/sign-up-form" target="_blank">Caffeine Club</a> is a mock sign-up form. The site uses Vanilla Javascript for client-side form validation.`,
+        `<a href="https://ginahenderson.me/sign-up-form" target="_blank">Caffeine Club</a> is a mock sign-up form. The site uses Vanilla Javascript for client-side form validation.`,
         'Caffeine Club',
         'Sign-up Form'
     )
@@ -155,7 +163,20 @@ const Pages = (() => {
         'Official Artist Website',
     )
 
-    return { diddit, raineyIceCream, minecraft, caffeineClub, ginaTharin };
+    const zenBalloons = app('https://ginahenderson.me/zen-balloons');
+    const ticTacToe = app('https://ginahenderson.me/tic-tac-toe');
+    const rockPaperScissors = app('https://ginahenderson.me/rock-paper-scissors');
+
+    return {
+        diddit,
+        raineyIceCream,
+        minecraft,
+        caffeineClub,
+        ginaTharin,
+        zenBalloons,
+        ticTacToe,
+        rockPaperScissors,
+    };
 })()
 
 export default (() => {
@@ -163,7 +184,7 @@ export default (() => {
     const openFile = (url, type, filename) => {
         const inner = document.createElement('div');
         const file = document.createElement('object');
-        const header = AppHeader(`documents/${filename}`);
+        const header = AppHeader(filename);
         inner.append(header.header, file);
         file.setAttribute('data', url);
         file.setAttribute('type', type);
@@ -179,14 +200,27 @@ export default (() => {
     const documents = (() => {
         const explorer = fileExplorer('documents');
         const container = explorer.container;
-        const resume = explorer.file('Resume.pdf', 'uiw:file-pdf', '2021-11-20', '565 KB');
+        const files = [
+            {
+                thumbnail: explorer.file('Resume.pdf', 'uiw:file-pdf', '2021-11-20', '565 KB'),
+                url: GinaResume,
+                type: 'application/pdf',
+                filename: 'Resume.pdf',
+            }
+        ]
+        
+        files.forEach((file) => {
+            file.thumbnail.addEventListener('click', () => {
+                openFile(file.url, file.type, `Documents/${file.filename}`);
+            })
+            explorer.main.append(file.thumbnail);
+        })
         const description = document.createElement('span');
         description.classList.add('files-description');
         description.textContent = '1 item, 565 KB used';
-        explorer.main.append(resume, description);
-        resume.addEventListener('click', () => {
-            openFile(GinaResume, 'application/pdf', 'Resume.pdf');
-        })
+
+        explorer.main.append(description);
+        
         return { container }
     })();
 
@@ -352,25 +386,44 @@ export default (() => {
     const games = (() => {
         const explorer = fileExplorer('games');
         const container = explorer.container;
-        const ticTacToe = explorer.file(
-            'Tic Tac Toe',
-            'icon-park-solid:game-handle',
-            '2022-04-17', ''
-        );
-        const rockPaperScissors = explorer.file(
-            'Rock Paper Scissors',
-            'icon-park-solid:game-handle',
-            '2022-02-23', ''
-        )
-        const zenBalloons = explorer.file(
-            'Zen Balloons',
-            'icon-park-solid:game-handle',
-            '2021-09-22', ''
-        )
+        const games = [
+            {
+                file: explorer.file(
+                    'Zen Balloons',
+                    'icon-park-solid:game-handle',
+                    '2021-09-22', ''
+                ),
+                link: 'zen-balloons',
+            },
+            {
+                file: explorer.file(
+                    'Tic Tac Toe',
+                    'icon-park-solid:game-handle',
+                    '2022-04-17', ''
+                ),
+                link: 'tic-tac-toe',
+            },
+            {
+                file: explorer.file(
+                    'Rock Paper Scissors',
+                    'icon-park-solid:game-handle',
+                    '2022-02-23', ''
+                ),
+                link: 'rock-paper-scissors',
+            },
+        ]
+
+        games.forEach((game) => {
+            game.file.addEventListener('click', () => {
+                openFile(`https://ginahenderson.me/${game.link}`, 'text/html', 'Games')
+            })
+            explorer.main.append(game.file);
+        })
+
         const description = document.createElement('span');
         description.classList.add('files-description');
         description.textContent = '3 items';
-        explorer.main.append(zenBalloons, rockPaperScissors, ticTacToe, description);
+        explorer.main.append(description);
 
         return { container }
     })();
