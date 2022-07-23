@@ -58,27 +58,6 @@ const Apps = (() => {
             classes: ['diddit'],
             content: () => console.log('todo'),
         },
-        // {
-        //     name: 'Weather',
-        //     appIcon: 'fluent:weather-partly-cloudy-day-48-filled',
-        //     tooltip: 'Weather app',
-        //     classes: ['weather'],
-        //     content: () => console.log('weather'),
-        // },
-        // {
-        //     name: 'Music',
-        //     appIcon: 'bxs:music',
-        //     tooltip: 'Music player app',
-        //     classes: ['music'],
-        //     content: () => console.log('music'),
-        // },
-        // {
-        //     name: 'News',
-        //     appIcon: 'ion:newspaper-outline',
-        //     tooltip: 'News app',
-        //     classes: ['news'],
-        //     content: () => console.log('news'),
-        // },
         {
             name: 'Contact',
             appIcon: 'ic:round-perm-contact-calendar',

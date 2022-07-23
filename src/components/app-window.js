@@ -26,18 +26,36 @@ const AppHeader = (label) => {
 }
 
 const BrowserElements = (() => {
-    const header = document.createElement('header');
-    header.classList.add('browser-header');
-    const lock = icon('fa6-solid:lock', ['lock']);
-    const searchBar = document.createElement('div');
-    searchBar.classList.add('search-bar');
-    searchBar.setAttribute('contenteditable', true);
-    searchBar.setAttribute('spellcheck', false);
-    searchBar.textContent = 'My Work';
-    searchBar.addEventListener('blur', () => searchBar.textContent = 'My Work');
-    const refresh = icon('ic:round-refresh', ['refresh']);
-    refresh.classList.add('refresh');
-    header.append(lock, searchBar, refresh);
+    const header = (() => {
+        const header = document.createElement('header');
+        header.classList.add('browser-header');
+        const lock = icon('fa6-solid:lock', ['lock']);
+        const searchBar = document.createElement('div');
+        searchBar.classList.add('search-bar');
+        searchBar.setAttribute('contenteditable', true);
+        searchBar.setAttribute('spellcheck', false);
+        searchBar.textContent = 'My Work';
+        searchBar.dataset.page = 'My Work';
+        searchBar.addEventListener('blur', () => searchBar.textContent = searchBar.dataset.page);
+        searchBar.addEventListener('keydown', (e) => {
+            if (e.key != 'Enter') return;
+            e.preventDefault();
+            searchBar.blur();
+        })
+        const refresh = icon('ic:round-refresh', ['refresh']);
+        refresh.classList.add('refresh');
+        header.append(lock, searchBar, refresh);
+
+        const setSearchText = (text) => {
+            searchBar.dataset.page = text;
+            searchBar.textContent = searchBar.dataset.page;
+        }
+
+        return { header, setSearchText };
+    })()
+
+    const body = document.createElement('div');
+    body.classList.add('browser-body');
 
     const footer = document.createElement('footer');
     footer.classList.add('browser-footer');
@@ -48,17 +66,20 @@ const BrowserElements = (() => {
     const tabs = icon('fluent:tabs-24-filled', ['browser-tabs']);
     footer.append(backButton, forwardButton, home, tabs);
 
-    return { header, footer }
+    return { header: header.header, body, footer, setSearchText: header.setSearchText }
 })()
 
-const fileExplorer = (label) => {
-    const container = document.createElement('div');
-    container.classList.add('file-explorer', `${label}-container`);
+const fileExplorer = (() => {
+    const container = (label) => {
+        const container = document.createElement('div');
+        container.classList.add('file-explorer', `${label}-container`);
 
-    container.append(AppHeader(label).header);
+        container.append(AppHeader(label).header);
 
-    const main = document.createElement('main');
-    container.append(main)
+        const main = document.createElement('main');
+        container.append(main)
+        return {container, main}
+    }
 
     const file = (name, thumbnail, date, size) => {
         const container = document.createElement('div');
@@ -86,8 +107,8 @@ const fileExplorer = (label) => {
         return container;
     }
 
-    return { container, main, file }
-}
+    return { container, file }
+})();
 
 const Pages = (() => {
     const content = (name, img, desc, title, subtitle) => {
@@ -198,8 +219,8 @@ export default (() => {
     }
 
     const documents = (() => {
-        const explorer = fileExplorer('documents');
-        const container = explorer.container;
+        const explorer = fileExplorer;
+        const container = explorer.container('documents');
         const files = [
             {
                 thumbnail: explorer.file('Resume.pdf', 'uiw:file-pdf', '2021-11-20', '565 KB'),
@@ -208,20 +229,20 @@ export default (() => {
                 filename: 'Resume.pdf',
             }
         ]
-        
+
         files.forEach((file) => {
             file.thumbnail.addEventListener('click', () => {
                 openFile(file.url, file.type, `Documents/${file.filename}`);
             })
-            explorer.main.append(file.thumbnail);
+            container.main.append(file.thumbnail);
         })
         const description = document.createElement('span');
         description.classList.add('files-description');
         description.textContent = '1 item, 565 KB used';
 
-        explorer.main.append(description);
-        
-        return { container }
+        container.main.append(description);
+
+        return { container: container.container }
     })();
 
     const browser = (() => {
@@ -236,12 +257,13 @@ export default (() => {
 
             container.content = page.content;
             container.dataset.type = page.type;
+            container.dataset.name = page.name;
             return container;
         }
 
         const setPageLink = (thumbnail) => {
             if (thumbnail.dataset.type == 'page') {
-                thumbnail.addEventListener('click', () => openPage(thumbnail.content));
+                thumbnail.addEventListener('click', () => openPage(thumbnail));
             } else if (thumbnail.dataset.type == 'link') {
                 const link = document.createElement('a');
                 link.setAttribute('href', thumbnail.content);
@@ -254,19 +276,21 @@ export default (() => {
         const container = document.createElement('div');
 
         const header = BrowserElements.header;
+        const body = BrowserElements.body;
         const footer = BrowserElements.footer;
 
-        const body = document.createElement('div');
-        body.classList.add('browser-body');
+        const homeScreen = document.createElement('div');
+        body.append(homeScreen);
 
         const logo = document.createElement('header');
-        body.append(logo)
+        logo.classList.add('browser-home-screen-header');
+        homeScreen.append(logo);
         const logoText = document.createElement('span');
         logoText.textContent = 'StarryOS Browser';
         logo.append(icon('bi:moon-stars-fill', ['browser-logo']), logoText);
 
         const work = document.createElement('div');
-        body.append(work);
+        homeScreen.append(work);
         work.classList.add('work');
         const h2 = document.createElement('h2');
         work.append(h2);
@@ -343,7 +367,7 @@ export default (() => {
         ]
 
         const bookmarks = document.createElement('div');
-        body.append(bookmarks);
+        homeScreen.append(bookmarks);
         bookmarks.classList.add('bookmarks');
         const bookmarksH2 = document.createElement('h2');
         bookmarks.append(bookmarksH2);
@@ -356,18 +380,18 @@ export default (() => {
 
         container.append(header, body, footer);
 
-        const openPage = content => {
-            if (body.contains(logo)) body.removeChild(logo);
-            if (body.contains(work)) body.removeChild(work);
-            if (body.contains(bookmarks)) body.removeChild(bookmarks);
-            body.append(content);
+        const openPage = page => {
+            if (body.contains(homeScreen)) body.removeChild(homeScreen);
+            body.append(page.content);
+            BrowserElements.setSearchText(page.dataset.name);
         }
 
         const closePage = () => {
             const content = body.querySelector('.content')
             if (content) {
                 body.removeChild(content);
-                body.append(logo, work, bookmarks);
+                body.append(homeScreen);
+                BrowserElements.setSearchText('My Work');
             }
             else {
                 closeModal();
@@ -384,8 +408,8 @@ export default (() => {
     })();
 
     const games = (() => {
-        const explorer = fileExplorer('games');
-        const container = explorer.container;
+        const explorer = fileExplorer;
+        const container = explorer.container('games');
         const games = [
             {
                 file: explorer.file(
@@ -417,15 +441,15 @@ export default (() => {
             game.file.addEventListener('click', () => {
                 openFile(`https://ginahenderson.me/${game.link}`, 'text/html', 'Games')
             })
-            explorer.main.append(game.file);
+            container.main.append(game.file);
         })
 
         const description = document.createElement('span');
         description.classList.add('files-description');
         description.textContent = '3 items';
-        explorer.main.append(description);
+        container.main.append(description);
 
-        return { container }
+        return { container:container.container }
     })();
 
     return { documents: documents.container, browser: browser.container, games: games.container, }
