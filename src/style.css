@@ -7,7 +7,7 @@
 
 :root {
     --main-color: rgb(53, 0, 122);
-    --display-text: 'Comfortaa', cursive;
+    --display-text: 'Comfortaa', sans-serif;
     --main-text: 'Roboto', sans-serif;
     font-family: var(--main-text);
     background-color: var(--main-color);
@@ -457,7 +457,11 @@
         background-color:rgb(11, 79, 134);
     }
     .content.caffeine {
-        background-color: red;
+        background-color: rgb(0, 128, 128);
+    }
+
+    .file-explorer.games-container {
+        background-color: #45007A;
     }
 }
 

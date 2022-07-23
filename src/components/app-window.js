@@ -7,7 +7,7 @@ import Rainey from '../images/rainey.png';
 import Minecraft from '../images/minecraft.png';
 import GinaTharinIcon from '../images/gina-tharin-favicon.png';
 import GinaTharin from '../images/ginatharin.png';
-import Caffeine from '.../images/caffeine.png';
+import Caffeine from '../images/caffeine.png';
 
 const closeModal = () => Modal.close(document.querySelector('.modal-container'));
 const AppHeader = (label) => {
@@ -267,12 +267,6 @@ export default (() => {
                 content: Pages.ginaTharin,
                 type: 'page',
             },
-            // {
-            //     name: 'Crunchy Cookie Co.',
-            //     favicon: icon('la:cookie-bite', ['cookie']),
-            //     content: Pages.crunchyCookieCo,
-            //     type: 'page',
-            // },
             {
                 name: 'Caffeine Club',
                 favicon: icon('fa-solid:coffee', ['caffeine']),
@@ -355,5 +349,31 @@ export default (() => {
         return { container }
     })();
 
-    return { documents: documents.container, browser: browser.container }
+    const games = (() => {
+        const explorer = fileExplorer('games');
+        const container = explorer.container;
+        const ticTacToe = explorer.file(
+            'Tic Tac Toe',
+            'icon-park-solid:game-handle',
+            '2022-04-17', ''
+        );
+        const rockPaperScissors = explorer.file(
+            'Rock Paper Scissors',
+            'icon-park-solid:game-handle',
+            '2022-02-23', ''
+        )
+        const zenBalloons = explorer.file(
+            'Zen Balloons',
+            'icon-park-solid:game-handle',
+            '2021-09-22', ''
+        )
+        const description = document.createElement('span');
+        description.classList.add('files-description');
+        description.textContent = '1 item';
+        explorer.main.append(zenBalloons, rockPaperScissors, ticTacToe, description);
+
+        return { container }
+    })();
+
+    return { documents: documents.container, browser: browser.container, games: games.container, }
 })();
