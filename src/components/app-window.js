@@ -166,7 +166,24 @@ const appWindow = (() => {
             return main;
         })();
 
-        const openFile = '';
+        const generateFile = (url, type, filename) => {
+            const inner = (() => {
+                const file = document.createElement('object');
+                file.setAttribute('data', url);
+                file.setAttribute('type', type);
+                return file;
+            })()
+            const title = `Documents/${filename}`;
+            return {
+                inner,
+                title
+            }
+        };
+
+        const openFile = (url, type, filename) => {
+            const file = generateFile(url, type, filename);
+            setMainContent(file);
+        }
 
         const documents = (() => {
             const container = document.createElement('div');
@@ -212,17 +229,13 @@ const appWindow = (() => {
         )
 
         const setMainContent = (content) => {
-            container.removeChild(main);
-            container.append(content.inner);
+            main.innerHTML = '';
+            main.append(content.inner);
             header.setText(content.title);
         }
 
         const resetMainContent = () => {
-            container.innerHTML = '';
-            container.append(
-                header.header,
-                main,
-            );
+            main.innerHTML = '';
             header.resetText();
         }
 
@@ -242,6 +255,10 @@ const appWindow = (() => {
             close,
             documents,
         }
+    })();
+
+    const browser = (() => {
+        
     })();
 
     return {
