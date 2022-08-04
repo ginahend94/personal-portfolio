@@ -166,6 +166,8 @@ const appWindow = (() => {
             return main;
         })();
 
+        const openFile = '';
+
         const documents = (() => {
             const container = document.createElement('div');
             container.classList.add('documents-inner');
