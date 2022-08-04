@@ -174,7 +174,6 @@
 
     .app-icon .iconify,
     .bookmark-icon .iconify {
-        /* border: solid 1px black; */
         font-size: 2.5rem;
         padding: 5px;
         border-radius: 5px;
@@ -196,7 +195,7 @@
         background-color: #5E007A;
     }
 
-    .diddit .iconify {
+    .utilities .iconify {
         background-color: #52007A;
     }
 
@@ -252,6 +251,15 @@
     }
 
     .window-header {
+    }
+
+    .modal .back-button {
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    .file-explorer header {
+        background-color: #7A0045;
         font-size: 1.1rem;
         padding: 10px;
         color: white;
@@ -260,22 +268,12 @@
         gap: 10px;
     }
 
-    .modal .back-button {
-        font-size: 2rem;
-        cursor: pointer;
-    }
-
     .file-explorer main {
         background-color: rgb(22, 22, 22);
         flex: auto;
         display: flex;
         color: white;
         position: relative;
-    }
-
-    .file-explorer.documents-container header,
-    .file-window header {
-        background-color: #7A0045;
     }
 
     .file-explorer .file {

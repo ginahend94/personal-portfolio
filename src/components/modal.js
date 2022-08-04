@@ -32,7 +32,7 @@ export default (() => {
     };
 
     const closeModal = modal => {
-        if (document.body.contains(modal)) document.body.removeChild(modal);
+        if (document.body.contains(modal.modalContainer)) document.body.removeChild(modal.modalContainer);
     };
     
     const openModal = modal => {
