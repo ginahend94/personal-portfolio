@@ -9,13 +9,28 @@ import GinaTharinIcon from '../images/gina-tharin-favicon.png';
 import GinaTharin from '../images/ginatharin.png';
 import Caffeine from '../images/caffeine.png';
 
-const History = (() => {
-    const history = [];
+function History() {
+    const past = [];
     const future = [];
-    const back = () => future.push(history.pop());
-    const forward = () => history.push(future.pop());
-    const movePages = (content) => history.push(content);
-})();
+    let currentPage = '';
+    const back = () => future.push(past.pop());
+    const forwards = () => past.push(future.pop());
+    const setCurrentPage = (page) => currentPage = page;
+    const movePages = (content) => past.push(content);
+    const getPast = () => past;
+    const getFuture = () => future;
+    const getCurrentPage = () => currentPage;
+
+    return {
+        back,
+        forwards,
+        movePages,
+        setCurrentPage,
+        getPast,
+        getFuture,
+        getCurrentPage,
+    }
+};
 
 const File = (name, thumbnail, date, size) => {
     const container = document.createElement('div');
@@ -85,26 +100,26 @@ const appWindow = (() => {
             return main;
         })();
 
-        const generateFile = (url, type, filename) => {
-            const inner = (() => {
-                const file = document.createElement('object');
-                file.setAttribute('data', url);
-                file.setAttribute('type', type);
-                return file;
-            })()
-            const title = `Documents/${filename}`;
-            return {
-                inner,
-                title
-            }
-        };
-
-        const openFile = (url, type, filename) => {
-            const file = generateFile(url, type, filename);
-            setMainContent(file);
-        }
-
         const documents = (() => {
+
+            const generateFile = (url, type, filename) => {
+                const inner = (() => {
+                    const file = document.createElement('object');
+                    file.setAttribute('data', url);
+                    file.setAttribute('type', type);
+                    return file;
+                })()
+                const title = `Documents/${filename}`;
+                return {
+                    inner,
+                    title
+                }
+            };
+            const openFile = (url, type, filename) => {
+                const file = generateFile(url, type, filename);
+                setMainContent(file);
+            }
+
             const container = document.createElement('div');
             container.classList.add('documents-inner');
 
@@ -177,6 +192,10 @@ const appWindow = (() => {
     })();
 
     const browser = (() => {
+
+        const container = document.createElement('div');
+        container.classList.add('browser');
+
         const header = (() => {
             const container = document.createElement('header');
             container.classList.add('browser-header');
@@ -193,6 +212,8 @@ const appWindow = (() => {
             return container;
         })();
 
+        const main = document.createElement('main');
+
         const footer = (() => {
             const container = document.createElement('footer');
             container.classList.add('browser-footer');
@@ -204,6 +225,7 @@ const appWindow = (() => {
             container.append(backButton, forwardButton, home, tabs);
             return container;
         })();
+
         const Pages = (() => {
             const content = (name, img, desc, title, subtitle) => {
                 const container = document.createElement('div');
@@ -287,7 +309,7 @@ const appWindow = (() => {
             };
         })()
 
-        
+
     })();
 
     return {
