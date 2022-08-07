@@ -435,7 +435,7 @@ const appWindow = (() => {
             searchBar.setAttribute('contenteditable', true);
             searchBar.setAttribute('spellcheck', false);
             searchBar.textContent = 'My Work';
-            searchBar.addEventListener('blur', () => searchBar.textContent = 'My Work');
+            searchBar.addEventListener('blur', () => searchBar.textContent = browserHistory.getCurrentPage().title);
             const refresh = icon('ic:round-refresh', ['refresh']);
             refresh.classList.add('refresh');
             container.append(lock, searchBar, refresh);
