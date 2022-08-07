@@ -13,19 +13,32 @@ function History() {
     const past = [];
     const future = [];
     let currentPage = '';
-    const back = () => future.push(past.pop());
-    const forwards = () => past.push(future.pop());
-    const setCurrentPage = (page) => currentPage = page;
-    const movePages = (content) => past.push(content);
+    const setCurrentPage = (page) => {
+        if (!page) return;
+        currentPage = page;
+    };
+    const goForwards = () => {
+        past.push(currentPage);
+        setCurrentPage(future.pop());
+    };
+    const goBackwards = () => {
+        const oldPage = currentPage;
+        setCurrentPage(past.pop());
+        future.push(oldPage);
+    };
+    const movePages = (page) => {
+        if (currentPage) past.push(currentPage);
+        setCurrentPage(page);
+    }
     const getPast = () => past;
     const getFuture = () => future;
     const getCurrentPage = () => currentPage;
 
     return {
-        back,
-        forwards,
-        movePages,
+        goForwards,
+        goBackwards,
         setCurrentPage,
+        movePages,
         getPast,
         getFuture,
         getCurrentPage,
@@ -57,9 +70,6 @@ const File = (name, thumbnail, date, size) => {
 
     return container;
 }
-
-
-
 
 const appWindow = (() => {
 
@@ -193,39 +203,6 @@ const appWindow = (() => {
 
     const browser = (() => {
 
-        const container = document.createElement('div');
-        container.classList.add('browser');
-
-        const header = (() => {
-            const container = document.createElement('header');
-            container.classList.add('browser-header');
-            const lock = icon('fa6-solid:lock', ['lock']);
-            const searchBar = document.createElement('div');
-            searchBar.classList.add('search-bar');
-            searchBar.setAttribute('contenteditable', true);
-            searchBar.setAttribute('spellcheck', false);
-            searchBar.textContent = 'My Work';
-            searchBar.addEventListener('blur', () => searchBar.textContent = 'My Work');
-            const refresh = icon('ic:round-refresh', ['refresh']);
-            refresh.classList.add('refresh');
-            container.append(lock, searchBar, refresh);
-            return container;
-        })();
-
-        const main = document.createElement('main');
-
-        const footer = (() => {
-            const container = document.createElement('footer');
-            container.classList.add('browser-footer');
-            const backButton = icon('eva:arrow-back-fill', ['browser-back']);
-            const forwardButton = icon('eva:arrow-forward-fill', ['browser-forward']);
-            const home = icon('fa6-solid:house-chimney', ['browser-home']);
-            home.addEventListener('click', () => console.log('will do'));
-            const tabs = icon('fluent:tabs-24-filled', ['browser-tabs']);
-            container.append(backButton, forwardButton, home, tabs);
-            return container;
-        })();
-
         const Pages = (() => {
             const content = (name, img, desc, title, subtitle) => {
                 const container = document.createElement('div');
@@ -253,6 +230,10 @@ const appWindow = (() => {
 
                 return container
             }
+
+            const homePage = (() => {
+                return console.log('tbd')
+            })();
 
             const app = (link) => {
                 const obj = document.createElement('object');
@@ -308,6 +289,53 @@ const appWindow = (() => {
                 ginaTharin,
             };
         })()
+
+        const container = document.createElement('div');
+        container.classList.add('browser');
+
+        const header = (() => {
+            const container = document.createElement('header');
+            container.classList.add('browser-header');
+            const lock = icon('fa6-solid:lock', ['lock']);
+            const searchBar = document.createElement('div');
+            searchBar.classList.add('search-bar');
+            searchBar.setAttribute('contenteditable', true);
+            searchBar.setAttribute('spellcheck', false);
+            searchBar.textContent = 'My Work';
+            searchBar.addEventListener('blur', () => searchBar.textContent = 'My Work');
+            const refresh = icon('ic:round-refresh', ['refresh']);
+            refresh.classList.add('refresh');
+            container.append(lock, searchBar, refresh);
+            return container;
+        })();
+
+        const main = document.createElement('main');
+
+        const footer = (() => {
+            const container = document.createElement('footer');
+            container.classList.add('browser-footer');
+            const backButton = icon('eva:arrow-back-fill', ['browser-back']);
+            const forwardButton = icon('eva:arrow-forward-fill', ['browser-forward']);
+            const home = icon('fa6-solid:house-chimney', ['browser-home']);
+            home.addEventListener('click', () => console.log('will do'));
+            const tabs = icon('fluent:tabs-24-filled', ['browser-tabs']);
+            container.append(backButton, forwardButton, home, tabs);
+            return container;
+        })();
+
+        container.append(
+            header,
+            main,
+            footer,
+        );
+
+        const browserHistory = History();
+
+        const openPage = (page) => {
+            main.innerHTML = '';
+            main.append(page);
+            browserHistory.movePages(page);
+        };
 
 
     })();
