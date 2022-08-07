@@ -338,7 +338,12 @@
         padding: 15px;
     }
 
-    .browser-body {
+    .browser main {
+        flex:auto;
+        overflow: scroll;
+    }
+
+    .home-page {
         flex: 1;
         background-color: rgb(49, 49, 49);
         display: flex;
@@ -347,7 +352,7 @@
         color: rgba(255,255,255,.7);
     }
 
-    .browser-body .browser-home-screen-header {
+    .home-page .browser-home-screen-header {
         font-family: var(--display-text);
         display: flex;
         padding: 20px;
@@ -360,7 +365,7 @@
         color: rgb(249, 172, 83);
     }
 
-    .browser-body .work h2, .browser-body .bookmarks h2 {
+    .home-page .work h2, .home-page .bookmarks h2 {
         margin: 5px;
         font-weight: 400;
         grid-column: 1 / -1;

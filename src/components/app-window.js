@@ -235,7 +235,9 @@ const appWindow = (() => {
             }
 
             const homePage = (() => {
-                return console.log('tbd')
+                const container = document.createElement('div');
+                container.textContent = 'Hello!!!!!!1!!'
+                return { content: container };
             })();
 
             const app = (link) => {
@@ -285,6 +287,7 @@ const appWindow = (() => {
             )
 
             return {
+                homePage,
                 diddit,
                 raineyIceCream,
                 minecraft,
@@ -354,6 +357,8 @@ const appWindow = (() => {
 
         const open = () => Modal.open(modal);
         const close = () => Modal.close(modal);
+
+        openPage(Pages.homePage);
 
         return {
             open,
