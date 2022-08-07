@@ -237,7 +237,10 @@ const appWindow = (() => {
             const homePage = (() => {
                 const container = document.createElement('div');
                 container.textContent = 'Hello!!!!!!1!!'
-                return { content: container };
+                return {
+                    content: container,
+                    title: 'My Work',
+                };
             })();
 
             const app = (link) => {
