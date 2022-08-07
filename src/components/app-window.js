@@ -228,7 +228,10 @@ const appWindow = (() => {
 
                 container.append(description);
 
-                return container
+                return {
+                    title,
+                    content: container,
+                }
             }
 
             const homePage = (() => {
@@ -306,7 +309,13 @@ const appWindow = (() => {
             const refresh = icon('ic:round-refresh', ['refresh']);
             refresh.classList.add('refresh');
             container.append(lock, searchBar, refresh);
-            return container;
+
+            const setSearchBarText = (text) => searchBar.textContent = text;
+
+            return {
+                container,
+                setSearchBarText,
+            };
         })();
 
         const main = document.createElement('main');
@@ -324,7 +333,7 @@ const appWindow = (() => {
         })();
 
         container.append(
-            header,
+            header.container,
             main,
             footer,
         );
@@ -333,15 +342,28 @@ const appWindow = (() => {
 
         const openPage = (page) => {
             main.innerHTML = '';
-            main.append(page);
+            main.append(page.content);
             browserHistory.movePages(page);
+            header.setSearchBarText(page.title);
         };
 
+        const modal = Modal.create(
+            ['browser'],
+            container,
+        );
 
+        const open = () => Modal.open(modal);
+        const close = () => Modal.close(modal);
+
+        return {
+            open,
+            close
+        }
     })();
 
     return {
         fileExplorer,
+        browser,
     };
 })();
 

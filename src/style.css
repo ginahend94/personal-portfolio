@@ -183,35 +183,35 @@
         background-color: #7A0045;
     }
 
-    .browser .iconify {
+    .browser.app-icon .iconify {
         background-color: #7A007A;
     }
 
-    .games .iconify {
+    .games.app-icon .iconify {
         background-color: #68007A;
     }
 
-    .trash .iconify {
+    .trash.app-icon .iconify {
         background-color: #5E007A;
     }
 
-    .utilities .iconify {
+    .utilities.app-icon .iconify {
         background-color: #52007A;
     }
 
-    .weather .iconify {
+    .weather.app-icon .iconify {
         background-color: #45007A;
     }
 
-    .music .iconify {
+    .music.app-icon .iconify {
         background-color: #35007A;
     }
 
-    .news .iconify {
+    .news.app-icon .iconify {
         background-color: #16007A;
     }
 
-    .contact .iconify {
+    .contact.app-icon .iconify {
         background-color: #7A0045;
     }
 
