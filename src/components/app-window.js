@@ -234,15 +234,6 @@ const appWindow = (() => {
                 }
             }
 
-            const homePage = (() => {
-                const container = document.createElement('div');
-                container.textContent = 'Hello!!!!!!1!!'
-                return {
-                    content: container,
-                    title: 'My Work',
-                };
-            })();
-
             const app = (link) => {
                 const obj = document.createElement('object');
                 obj.setAttribute('data', link);
@@ -274,6 +265,7 @@ const appWindow = (() => {
                 'Gina\'s Unofficial Minecraft Guide',
                 'Instructional Website'
             )
+
             const caffeineClub = content(
                 'caffeine',
                 Caffeine,
@@ -281,6 +273,7 @@ const appWindow = (() => {
                 'Caffeine Club',
                 'Sign-up Form'
             )
+
             const ginaTharin = content(
                 'gina-tharin',
                 GinaTharin,
@@ -288,6 +281,137 @@ const appWindow = (() => {
                 'Gina Tharin',
                 'Official Artist Website',
             )
+
+            const homePage = (() => {
+                const pageThumbnail = (page) => {
+                    const container = document.createElement('div');
+                    container.classList.add('bookmark-icon');
+                    container.append(page.favicon);
+
+                    const pageName = document.createElement('span');
+                    container.append(pageName);
+                    pageName.textContent = page.name;
+
+                    container.content = page.content;
+                    container.dataset.type = page.type;
+                    return container;
+                }
+
+                const setPageLink = (thumbnail) => {
+                    if (thumbnail.dataset.type == 'page') {
+                        thumbnail.addEventListener('click', () => openPage(thumbnail.content));
+                    } else if (thumbnail.dataset.type == 'link') {
+                        const link = document.createElement('a');
+                        link.setAttribute('href', thumbnail.content);
+                        link.target = '_blank';
+                        link.append(thumbnail);
+                        return link;
+                    }
+                }
+
+                const container = document.createElement('div');
+                container.classList.add('home-page');
+
+                const logo = document.createElement('header');
+                container.append(logo)
+                const logoText = document.createElement('span');
+                logoText.textContent = 'StarryOS Browser';
+                logo.append(icon('bi:moon-stars-fill', ['logo']), logoText);
+
+                const work = document.createElement('div');
+                container.append(work);
+                work.classList.add('work');
+                const h2 = document.createElement('h2');
+                work.append(h2);
+                h2.textContent = 'My Work';
+
+                const ginaTharinIcon = new Image();
+                ginaTharinIcon.src = GinaTharinIcon;
+                ginaTharinIcon.classList.add('iconify');
+
+                const pages = [
+                    {
+                        name: 'Diddit - To-Do App',
+                        favicon: icon('mdi:checkbox-marked-outline', ['diddit']),
+                        content: diddit,
+                        type: 'page',
+                    },
+                    {
+                        name: 'Rainey Ice Cream',
+                        favicon: icon('fa-solid:ice-cream', ['rainey']),
+                        content: raineyIceCream,
+                        type: 'page',
+                    },
+                    {
+                        name: 'Minecraft Beginner\'s Guide',
+                        favicon: icon('file-icons:minecraft', ['minecraft']),
+                        content: minecraft,
+                        type: 'page',
+                    },
+                    {
+                        name: 'Gina Tharin Official Artist Website',
+                        favicon: ginaTharinIcon,
+                        content: ginaTharin,
+                        type: 'page',
+                    },
+                    {
+                        name: 'Caffeine Club',
+                        favicon: icon('fa-solid:coffee', ['caffeine']),
+                        content: caffeineClub,
+                        type: 'page',
+                    }
+                ];
+
+                pages.forEach(page => {
+                    const thumbnail = pageThumbnail(page);
+                    setPageLink(thumbnail);
+                    work.append(thumbnail);
+                })
+
+                const bookmarkList = [
+                    {
+                        name: 'GitHub',
+                        favicon: icon('logos:github-icon'),
+                        content: 'https://github.com/',
+                        type: 'link'
+                    },
+                    {
+                        name: 'CodePen',
+                        favicon: icon('logos:codepen-icon'),
+                        content: 'https://codepen.io',
+                        type: 'link'
+                    },
+                    {
+                        name: 'YouTube',
+                        favicon: icon('logos:youtube-icon'),
+                        content: 'https://youtube.com',
+                        type: 'link'
+                    },
+                    {
+                        name: 'Stack Overflow',
+                        favicon: icon('logos:stackoverflow-icon'),
+                        content: 'https://stackoverflow.com',
+                        type: 'link'
+                    }
+                ]
+
+                const bookmarks = document.createElement('div');
+                container.append(bookmarks);
+                bookmarks.classList.add('bookmarks');
+                const bookmarksH2 = document.createElement('h2');
+                bookmarks.append(bookmarksH2);
+                bookmarksH2.textContent = 'Bookmarks';
+
+                bookmarkList.forEach(bookmark => {
+                    const thumbnail = pageThumbnail(bookmark);
+                    bookmarks.append(setPageLink(thumbnail));
+                })
+
+                return {
+                    content: container,
+                    title: 'My Work',
+                };
+            })();
 
             return {
                 homePage,
