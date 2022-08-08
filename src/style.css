@@ -342,6 +342,11 @@
         cursor: pointer;
     }
 
+    .browser-footer .disabled {
+        opacity: .4;
+        cursor: auto;
+    }
+
     .browser main {
         flex:auto;
         overflow: scroll;

@@ -22,6 +22,7 @@ function History() {
         setCurrentPage(future.pop());
     };
     const goBackwards = () => {
+        if (!past.length) return;
         const oldPage = currentPage;
         setCurrentPage(past.pop());
         future.push(oldPage);
@@ -453,10 +454,18 @@ const appWindow = (() => {
         const footer = (() => {
             const container = document.createElement('footer');
             container.classList.add('browser-footer');
-            const backButton = icon('eva:arrow-back-fill', ['browser-back']);
-            const forwardButton = icon('eva:arrow-forward-fill', ['browser-forward']);
+            const backButton = icon('eva:arrow-back-fill', ['browser-back', 'disabled']);
+            backButton.addEventListener('click', () => {
+                browserHistory.goBackwards();
+                updatePage();
+                if (!browserHistory.getPast().length) {
+                    return backButton.classList.add('disabled');
+                }
+                console.log(browserHistory.getPast())
+            })
+            const forwardButton = icon('eva:arrow-forward-fill', ['browser-forward', 'disabled']);
             const home = icon('fa6-solid:house-chimney', ['browser-home']);
-            home.addEventListener('click', () => console.log('will do'));
+            home.addEventListener('click', () => openPage(Pages.homePage));
             const tabs = icon('fluent:tabs-24-filled', ['browser-tabs']);
             container.append(backButton, forwardButton, home, tabs);
             return container;
@@ -470,12 +479,20 @@ const appWindow = (() => {
 
         const browserHistory = History();
 
+        const backButton = footer.querySelector('.browser-back');
+
         const openPage = (page) => {
             main.innerHTML = '';
             main.append(page.content);
-            browserHistory.movePages(page);
+            if (browserHistory.getCurrentPage() !== page) browserHistory.movePages(page);
             header.setSearchBarText(page.title);
+            if (!browserHistory.getPast().length) {
+                return backButton.classList.add('disabled');
+            }
+            return backButton.classList.remove('disabled');
         };
+
+        const updatePage = () => openPage(browserHistory.getCurrentPage());
 
         const modal = Modal.create(
             ['browser'],
