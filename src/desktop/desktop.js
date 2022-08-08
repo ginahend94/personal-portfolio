@@ -45,7 +45,7 @@ const Apps = (() => {
             classes: ['utilities'],
             title: 'Utilities',
             window: fileExplorer,
-            inner: 'utilities',
+            inner: fileExplorer.webApps,
         },
         {
             name: 'Games',

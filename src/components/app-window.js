@@ -46,7 +46,7 @@ function History() {
     }
 };
 
-const File = (name, thumbnail, date, size) => {
+const File = (name, thumbnail, date, size = '') => {
     const container = document.createElement('div');
     container.classList.add('file');
     if (typeof thumbnail == 'string') {
@@ -64,10 +64,12 @@ const File = (name, thumbnail, date, size) => {
     dateLabel.classList.add('file-info');
     dateLabel.textContent = format(new Date(date), 'P');
 
-    const sizeLabel = document.createElement('span');
-    container.append(sizeLabel);
-    sizeLabel.classList.add('file-info');
-    sizeLabel.textContent = size;
+    if (size) {
+        const sizeLabel = document.createElement('span');
+        container.append(sizeLabel);
+        sizeLabel.classList.add('file-info');
+        sizeLabel.textContent = size;
+    }
 
     return container;
 }
@@ -75,6 +77,28 @@ const File = (name, thumbnail, date, size) => {
 const appWindow = (() => {
 
     const fileExplorer = (() => {
+
+        const fileHistory = History();
+
+        const generateFile = (url, type, filename) => {
+            const inner = (() => {
+                const file = document.createElement('object');
+                file.setAttribute('data', url);
+                file.setAttribute('type', type);
+                return file;
+            })()
+            const title = `Documents/${filename}`;
+            return {
+                inner,
+                title
+            }
+        };
+        const openFile = (url, type, filename) => {
+            const file = generateFile(url, type, filename);
+            setMainContent(file);
+            if (filename == 'none') header.classList.add('hidden');
+        };
+
         const container = document.createElement('div');
         container.classList.add('file-explorer');
 
@@ -106,31 +130,16 @@ const appWindow = (() => {
                 resetText,
             }
         })();
-        const main = (() => {
-            const main = document.createElement('main');
-            return main;
+        const main = document.createElement('main');
+
+        const homePage = (() => {
+            const container = document.createElement('div');
+
+            return container;
         })();
 
+        // Folders
         const documents = (() => {
-
-            const generateFile = (url, type, filename) => {
-                const inner = (() => {
-                    const file = document.createElement('object');
-                    file.setAttribute('data', url);
-                    file.setAttribute('type', type);
-                    return file;
-                })()
-                const title = `Documents/${filename}`;
-                return {
-                    inner,
-                    title
-                }
-            };
-            const openFile = (url, type, filename) => {
-                const file = generateFile(url, type, filename);
-                setMainContent(file);
-            }
-
             const container = document.createElement('div');
             container.classList.add('documents-inner');
 
@@ -165,7 +174,66 @@ const appWindow = (() => {
 
             container.append(description);
 
-            return container
+            return container;
+        })();
+        const webApps = (() => {
+            const container = document.createElement('div');
+
+            const files = [
+                {
+                    thumbnail: File(
+                        'Calculator',
+                        'fa-solid:calculator',
+                        '2022-02-28',
+                    ),
+                    url: 'https://ginahenderson.me/calculator/',
+                    type: 'text/html',
+                    filename: 'Calculator',
+                },
+                {
+                    thumbnail: File(
+                        'Diddit - To-Do List',
+                        'mdi:checkbox-marked-outline',
+                        '2022-07-09',
+                    ),
+                    url: 'https://ginahenderson.me/to-do-list/',
+                    type: 'text/html',
+                    filename: 'Diddit',
+                },
+                {
+                    thumbnail: File(
+                        'My Library - Virtual Reading List',
+                        'fa6-solid:book',
+                        '2022-03-27',
+                    ),
+                    url: 'https://ginahenderson.me/library/',
+                    type: 'text/html',
+                    filename: 'My Library',
+                },
+            ]
+
+            files.forEach((file) => {
+                file.thumbnail.addEventListener('click', () => {
+                    openFile(
+                        file.url,
+                        file.type,
+                        `Web Apps/${file.filename}`,
+                    );
+                })
+                container.append(file.thumbnail);
+            })
+
+            return container;
+        })();
+        const games = (() => {
+            const container = document.createElement('div');
+
+            return container;
+        })();
+        const trash = (() => {
+            const container = document.createElement('div');
+
+            return container;
         })();
 
         container.append(
@@ -199,6 +267,9 @@ const appWindow = (() => {
             open,
             close,
             documents,
+            webApps,
+            games,
+            trash,
         }
     })();
 
