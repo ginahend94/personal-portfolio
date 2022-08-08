@@ -273,6 +273,13 @@
         position: relative;
     }
 
+    .file-explorer main > div {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 120px);
+        grid-template-rows: repeat(auto-fit, 110px);
+        width: 100%;
+    }
+
     .file-explorer .file {
         display: flex;
         flex-direction: column;
@@ -283,6 +290,12 @@
         margin: 20px;
         cursor: pointer;
         text-align: center;
+        max-width: 110px;
+    }
+
+    .file > span {
+        font-size: small;
+        margin-top: 5px;
     }
 
     .file .iconify {

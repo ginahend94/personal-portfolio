@@ -182,16 +182,6 @@ const appWindow = (() => {
             const files = [
                 {
                     thumbnail: File(
-                        'Calculator',
-                        'fa-solid:calculator',
-                        '2022-02-28',
-                    ),
-                    url: 'https://ginahenderson.me/calculator/',
-                    type: 'text/html',
-                    filename: 'Calculator',
-                },
-                {
-                    thumbnail: File(
                         'Diddit - To-Do List',
                         'mdi:checkbox-marked-outline',
                         '2022-07-09',
@@ -199,6 +189,16 @@ const appWindow = (() => {
                     url: 'https://ginahenderson.me/to-do-list/',
                     type: 'text/html',
                     filename: 'Diddit',
+                },
+                {
+                    thumbnail: File(
+                        'Calculator',
+                        'fa-solid:calculator',
+                        '2022-02-28',
+                    ),
+                    url: 'https://ginahenderson.me/calculator/',
+                    type: 'text/html',
+                    filename: 'Calculator',
                 },
                 {
                     thumbnail: File(

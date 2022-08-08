@@ -54,7 +54,7 @@ const Apps = (() => {
             classes: ['games'],
             title: 'Games',
             window: fileExplorer,
-            inner: 'games',
+            inner: fileExplorer.games,
         },
         {
             name: 'Contact',
@@ -72,7 +72,7 @@ const Apps = (() => {
             classes: ['trash'],
             title: 'Recycling Bin',
             window: fileExplorer,
-            inner: 'trash',
+            inner: fileExplorer.trash,
         },
     ]
 
