@@ -305,6 +305,7 @@ const appWindow = (() => {
                         const link = document.createElement('a');
                         link.setAttribute('href', thumbnail.content);
                         link.target = '_blank';
+                        link.title = 'Opens in a new tab';
                         link.append(thumbnail);
                         return link;
                     }
@@ -461,7 +462,6 @@ const appWindow = (() => {
                 if (!browserHistory.getPast().length) {
                     return backButton.classList.add('disabled');
                 }
-                console.log(browserHistory.getPast())
             })
             const forwardButton = icon('eva:arrow-forward-fill', ['browser-forward', 'disabled']);
             forwardButton.addEventListener('click', () => {
@@ -470,7 +470,6 @@ const appWindow = (() => {
                 if (!browserHistory.getFuture().length) {
                     return forwardButton.classList.add('disabled');
                 }
-                console.log(browserHistory.getFuture())
             })
             const home = icon('fa6-solid:house-chimney', ['browser-home']);
             home.addEventListener('click', () => openPage(Pages.homePage));
