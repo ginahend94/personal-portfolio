@@ -18,14 +18,14 @@ function History() {
         currentPage = page;
     };
     const goForwards = () => {
+        if (!future.length) return;
         past.push(currentPage);
         setCurrentPage(future.pop());
     };
     const goBackwards = () => {
         if (!past.length) return;
-        const oldPage = currentPage;
+        future.push(currentPage);
         setCurrentPage(past.pop());
-        future.push(oldPage);
     };
     const movePages = (page) => {
         if (currentPage) past.push(currentPage);
@@ -464,6 +464,14 @@ const appWindow = (() => {
                 console.log(browserHistory.getPast())
             })
             const forwardButton = icon('eva:arrow-forward-fill', ['browser-forward', 'disabled']);
+            forwardButton.addEventListener('click', () => {
+                browserHistory.goForwards();
+                updatePage();
+                if (!browserHistory.getFuture().length) {
+                    return forwardButton.classList.add('disabled');
+                }
+                console.log(browserHistory.getFuture())
+            })
             const home = icon('fa6-solid:house-chimney', ['browser-home']);
             home.addEventListener('click', () => openPage(Pages.homePage));
             const tabs = icon('fluent:tabs-24-filled', ['browser-tabs']);
@@ -480,6 +488,7 @@ const appWindow = (() => {
         const browserHistory = History();
 
         const backButton = footer.querySelector('.browser-back');
+        const forwardButton = footer.querySelector('.browser-forward');
 
         const openPage = (page) => {
             main.innerHTML = '';
@@ -487,9 +496,15 @@ const appWindow = (() => {
             if (browserHistory.getCurrentPage() !== page) browserHistory.movePages(page);
             header.setSearchBarText(page.title);
             if (!browserHistory.getPast().length) {
-                return backButton.classList.add('disabled');
+                backButton.classList.add('disabled');
+            } else {
+                backButton.classList.remove('disabled');
             }
-            return backButton.classList.remove('disabled');
+            if (!browserHistory.getFuture().length) {
+                forwardButton.classList.add('disabled');
+            } else {
+                forwardButton.classList.remove('disabled');
+            }
         };
 
         const updatePage = () => openPage(browserHistory.getCurrentPage());
