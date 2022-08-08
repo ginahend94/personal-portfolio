@@ -478,6 +478,7 @@ const appWindow = (() => {
             home.addEventListener('click', () => openPage(Pages.homePage));
             const exit = icon('radix-icons:exit', ['browser-exit']);
             exit.title = 'Exit app';
+            exit.addEventListener('click', () => close());
             container.append(backButton, forwardButton, home, exit);
             return container;
         })();
