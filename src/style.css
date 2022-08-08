@@ -340,6 +340,16 @@
 
     .browser-footer .iconify {
         cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap:5px;
+    }
+    .browser-footer .iconify::after {
+        content: attr(title);
+        font-size: .4em;
+        color:var(--main-text);
+        opacity: .5;
     }
 
     .browser-footer .disabled {

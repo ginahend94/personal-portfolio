@@ -456,6 +456,7 @@ const appWindow = (() => {
             const container = document.createElement('footer');
             container.classList.add('browser-footer');
             const backButton = icon('eva:arrow-back-fill', ['browser-back', 'disabled']);
+            backButton.title = 'Go back';
             backButton.addEventListener('click', () => {
                 browserHistory.goBackwards();
                 updatePage();
@@ -464,6 +465,7 @@ const appWindow = (() => {
                 }
             })
             const forwardButton = icon('eva:arrow-forward-fill', ['browser-forward', 'disabled']);
+            forwardButton.title = 'Go forward';
             forwardButton.addEventListener('click', () => {
                 browserHistory.goForwards();
                 updatePage();
@@ -472,9 +474,11 @@ const appWindow = (() => {
                 }
             })
             const home = icon('fa6-solid:house-chimney', ['browser-home']);
+            home.title = 'Go home';
             home.addEventListener('click', () => openPage(Pages.homePage));
-            const tabs = icon('fluent:tabs-24-filled', ['browser-tabs']);
-            container.append(backButton, forwardButton, home, tabs);
+            const exit = icon('radix-icons:exit', ['browser-exit']);
+            exit.title = 'Exit app';
+            container.append(backButton, forwardButton, home, exit);
             return container;
         })();
 

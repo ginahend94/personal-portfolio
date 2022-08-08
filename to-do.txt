@@ -1,5 +1,4 @@
 TO DO
-add history functionality to back button
 fix tooltip off page (if bottom-right is lower than page height etc)
 remove phone number from resume
 
@@ -15,3 +14,4 @@ app open animation
 
 DONE
 splash page
+add history functionality to back button
