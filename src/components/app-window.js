@@ -285,7 +285,7 @@ const appWindow = (() => {
                     thumbnail: File(
                         'Painter',
                         'pepicons:paint-pallet',
-                        '2021-02-23',
+                        '2021-02-24',
                         '',
                     ),
                     url: 'https://ginahenderson.me/etch-a-sketch/',
@@ -307,7 +307,7 @@ const appWindow = (() => {
 
             const description = document.createElement('span');
             description.classList.add('files-description');
-            description.textContent = '3 items';
+            description.textContent = '4 items';
 
             container.append(description);
 
