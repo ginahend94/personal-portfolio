@@ -250,33 +250,47 @@ const appWindow = (() => {
             const files = [
                 {
                     thumbnail: File(
+                        'Zen Balloons',
+                        'ion:balloon',
+                        '2021-09-22',
+                        '',
+                    ),
+                    url: 'https://ginahenderson.me/zen-balloons/',
+                    type: 'text/html',
+                    filename: 'Zen Balloons',
+                },
+                {
+                    thumbnail: File(
                         'Tic Tac Toe',
-                        'mdi:checkbox-marked-outline',
-                        '2022-07-09',
+                        'ion:game-controller',
+                        '2022-04-17',
+                        '',
                     ),
-                    url: 'https://ginahenderson.me/to-do-list/',
+                    url: 'https://ginahenderson.me/tic-tac-toe/',
                     type: 'text/html',
-                    filename: 'Diddit',
+                    filename: 'Tic Tac Toe',
                 },
                 {
                     thumbnail: File(
-                        'Calculator',
-                        'fa-solid:calculator',
-                        '2022-02-28',
+                        'Rock Paper Scissors',
+                        'fa6-regular:hand-scissors',
+                        '2022-02-23',
+                        '',
                     ),
-                    url: 'https://ginahenderson.me/calculator/',
+                    url: 'https://ginahenderson.me/rock-paper-scissors/',
                     type: 'text/html',
-                    filename: 'Calculator',
+                    filename: 'Rock Paper Scissors',
                 },
                 {
                     thumbnail: File(
-                        'My Library - Virtual Reading List',
-                        'fa6-solid:book',
-                        '2022-03-27',
+                        'Painter',
+                        'pepicons:paint-pallet',
+                        '2021-02-23',
+                        '',
                     ),
-                    url: 'https://ginahenderson.me/library/',
+                    url: 'https://ginahenderson.me/etch-a-sketch/',
                     type: 'text/html',
-                    filename: 'My Library',
+                    filename: 'Painter',
                 },
             ]
 
