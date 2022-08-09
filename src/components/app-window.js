@@ -112,16 +112,22 @@ const appWindow = (() => {
                 ['back-button'],
             );
             const span = document.createElement('span');
+            const exit = icon(
+                'ep:close-bold',
+                ['app-exit'],
+            )
 
             backButton.addEventListener('click', () => {
-                if (span.textContent == 'Gina Henderson/Files') close();
-                else resetMainContent();
+                fileHistory.goBackwards();
+                updatePage();
             });
             span.textContent = 'Gina Henderson/Files';
+            exit.addEventListener('click', () => close());
 
             header.append(
                 backButton,
                 span,
+                exit,
             );
 
             const setText = (text) => span.textContent = `Gina Henderson/Files${text? '/' + text:''}`;
@@ -136,7 +142,7 @@ const appWindow = (() => {
         const backButton = icon('charm:chevron-left', ['app-back-button']);
         backButton.addEventListener('click', () => {
             fileHistory.goBackwards();
-            console.log(fileHistory.getPast())
+            updatePage();
         });
 
         // Folders
@@ -163,7 +169,7 @@ const appWindow = (() => {
                     openFile(
                         file.url,
                         file.type,
-                        `Documents/${file.filename}`,
+                        `${file.filename}`,
                     );
                 })
                 container.append(file.thumbnail);
@@ -330,9 +336,12 @@ const appWindow = (() => {
         const setMainContent = (content) => {
             main.innerHTML = '';
             main.append(content.inner);
+            if (content.title) showHeader();
             header.setText(content.title);
-            fileHistory.movePages(content);
+            if (fileHistory.getCurrentPage() !== content) fileHistory.movePages(content);
         }
+
+        const updatePage = () => setMainContent(fileHistory.getCurrentPage());
 
         const resetMainContent = () => setMainContent(homePage);
 

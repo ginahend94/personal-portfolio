@@ -250,7 +250,7 @@
         flex-direction: column;
     }
 
-    .modal .back-button {
+    .modal .back-button, .modal .app-exit {
         font-size: 2rem;
         cursor: pointer;
     }
@@ -382,6 +382,7 @@
     }
 
     .home-page {
+        min-height: 100%;
         flex: 1;
         background-color: rgb(49, 49, 49);
         display: flex;
@@ -529,6 +530,13 @@
 
     .file-explorer .app-back-button.shown {
         display: block;
+    }
+
+    .file-explorer .app-exit {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
     }
 
     .file-explorer.games-container {
