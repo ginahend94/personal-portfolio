@@ -143,7 +143,7 @@
     }
 
     a {
-        color:inherit;
+        color: inherit;
         /* text-decoration: none; */
     }
 
@@ -256,7 +256,7 @@
     }
 
     .file-explorer header {
-        background-color: #7A0045;
+        background-color: #45007A;
         font-size: 1.1rem;
         padding: 10px;
         color: white;
@@ -265,7 +265,12 @@
         gap: 10px;
     }
 
-    .file-explorer main, .file-explorer.modal-inner {
+    .file-explorer header.hidden {
+        display: none;
+    }
+
+    .file-explorer main,
+    .file-explorer.modal-inner {
         background-color: rgb(22, 22, 22);
         flex: auto;
         display: flex;
@@ -273,7 +278,7 @@
         position: relative;
     }
 
-    .file-explorer main > div {
+    .file-explorer main>div {
         display: grid;
         grid-template-columns: repeat(auto-fill, 120px);
         grid-template-rows: repeat(auto-fit, 110px);
@@ -293,7 +298,7 @@
         max-width: 110px;
     }
 
-    .file > span {
+    .file>span {
         font-size: small;
         margin-top: 5px;
     }
@@ -356,12 +361,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap:5px;
+        gap: 5px;
     }
+
     .browser-footer .iconify::after {
         content: attr(title);
         font-size: .4em;
-        color:var(--main-text);
+        color: var(--main-text);
         opacity: .5;
     }
 
@@ -371,7 +377,7 @@
     }
 
     .browser main {
-        flex:auto;
+        flex: auto;
         overflow: scroll;
     }
 
@@ -381,7 +387,7 @@
         display: flex;
         flex-direction: column;
         overflow-y: auto;
-        color: rgba(255,255,255,.7);
+        color: rgba(255, 255, 255, .7);
     }
 
     .home-page header {
@@ -397,7 +403,8 @@
         color: rgb(249, 172, 83);
     }
 
-    .home-page .work h2, .home-page .bookmarks h2 {
+    .home-page .work h2,
+    .home-page .bookmarks h2 {
         margin: 5px;
         font-weight: 400;
         grid-column: 1 / -1;
@@ -420,30 +427,35 @@
         background-color: rgba(255, 255, 255, .5);
         width: 50px;
         height: 50px;
-        font-size:2rem;
+        font-size: 2rem;
         display: flex;
         align-items: center;
         justify-content: center;
     }
+
     .iconify.diddit {
         color: rgb(114, 76, 211);
     }
+
     .iconify.rainey {
-        color:rgb(81, 138, 113)
+        color: rgb(81, 138, 113)
     }
+
     .iconify.minecraft {
-        color:rgb(128, 0, 128);
+        color: rgb(128, 0, 128);
     }
+
     .iconify.cookie {
-        color:rgb(133, 54, 54)
+        color: rgb(133, 54, 54)
     }
+
     .iconify.caffeine {
         color: rgb(4, 58, 80);
     }
 
     .content {
         min-height: 100%;
-        flex:auto;
+        flex: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -455,7 +467,7 @@
 
     .content h2 {
         font-family: var(--display-text);
-        font-size:2rem;
+        font-size: 2rem;
     }
 
     .content h3 {
@@ -465,18 +477,18 @@
     .content img {
         width: calc(100% - 40px);
         max-width: 500px;
-        margin:10px;
+        margin: 10px;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
     }
 
     .content a {
-        color:#7A0045;
+        color: #7A0045;
     }
 
     .content p {
-        margin:20px;
+        margin: 20px;
         background-color: white;
-        color:black;
+        color: black;
         padding: 20px;
         max-width: 500px;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
@@ -485,17 +497,38 @@
     .content.diddit {
         background-color: rgb(114, 76, 211);
     }
+
     .content.rainey {
-        background-color:rgb(81, 138, 113)
+        background-color: rgb(81, 138, 113)
     }
+
     .content.minecraft {
         background-color: rgb(122, 0, 69);
     }
+
     .content.gina-tharin {
-        background-color:rgb(11, 79, 134);
+        background-color: rgb(11, 79, 134);
     }
+
     .content.caffeine {
         background-color: rgb(0, 128, 128);
+    }
+
+    .file-explorer .app-back-button {
+        display: none;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        padding: 10px;
+        background-color: #45007A;
+        font-size: 2rem;
+        border-radius: 50%;
+        box-shadow: 2px 1px 2px rgba(0, 0, 0, .5);
+        cursor: pointer;
+    }
+
+    .file-explorer .app-back-button.shown {
+        display: block;
     }
 
     .file-explorer.games-container {
