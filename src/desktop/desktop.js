@@ -15,7 +15,7 @@ const Apps = (() => {
     const openApp = (app) => {
         app.window.open();
         if (app.window == fileExplorer) {
-            app.window.setMainContent(app);
+            app.window.setMainContent(app.inner);
         }
     }
 
