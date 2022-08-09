@@ -82,6 +82,12 @@ const appWindow = (() => {
 
         const fileHistory = History();
 
+        const goBack = () => {
+            if (!fileHistory.getPast().length) return close();
+            fileHistory.goBackwards();
+            updatePage();
+        }
+
         const generateFile = (url, type, filename) => {
             const inner = (() => {
                 const file = document.createElement('object');
@@ -117,10 +123,7 @@ const appWindow = (() => {
                 ['app-exit'],
             )
 
-            backButton.addEventListener('click', () => {
-                fileHistory.goBackwards();
-                updatePage();
-            });
+            backButton.addEventListener('click', goBack);
             span.textContent = 'Gina Henderson/Files';
             exit.addEventListener('click', () => close());
 
@@ -140,10 +143,7 @@ const appWindow = (() => {
         const main = document.createElement('main');
 
         const backButton = icon('charm:chevron-left', ['app-back-button']);
-        backButton.addEventListener('click', () => {
-            fileHistory.goBackwards();
-            updatePage();
-        });
+        backButton.addEventListener('click', goBack);
 
         // Folders
         const documents = (() => {
@@ -246,7 +246,56 @@ const appWindow = (() => {
         })();
         const games = (() => {
             const container = document.createElement('div');
-            container.textContent = 'Games!!!!'
+
+            const files = [
+                {
+                    thumbnail: File(
+                        'Tic Tac Toe',
+                        'mdi:checkbox-marked-outline',
+                        '2022-07-09',
+                    ),
+                    url: 'https://ginahenderson.me/to-do-list/',
+                    type: 'text/html',
+                    filename: 'Diddit',
+                },
+                {
+                    thumbnail: File(
+                        'Calculator',
+                        'fa-solid:calculator',
+                        '2022-02-28',
+                    ),
+                    url: 'https://ginahenderson.me/calculator/',
+                    type: 'text/html',
+                    filename: 'Calculator',
+                },
+                {
+                    thumbnail: File(
+                        'My Library - Virtual Reading List',
+                        'fa6-solid:book',
+                        '2022-03-27',
+                    ),
+                    url: 'https://ginahenderson.me/library/',
+                    type: 'text/html',
+                    filename: 'My Library',
+                },
+            ]
+
+            files.forEach((file) => {
+                file.thumbnail.addEventListener('click', () => {
+                    openFile(
+                        file.url,
+                        file.type,
+                        'none',
+                    );
+                })
+                container.append(file.thumbnail);
+            })
+
+            const description = document.createElement('span');
+            description.classList.add('files-description');
+            description.textContent = '3 items';
+
+            container.append(description);
 
             return {
                 inner: container,
