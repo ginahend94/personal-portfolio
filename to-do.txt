@@ -1,6 +1,7 @@
 TO DO
 fix tooltip off page (if bottom-right is lower than page height etc)
 remove phone number from resume
+optimize pages for mobile
 
 
 FANDANGLES

@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, set } from "date-fns";
 import icon from "../functions/icon";
 import Modal from "./modal";
 import GinaResume from '../files/Gina_Henderson_Resume.pdf';
@@ -46,7 +46,7 @@ function History() {
     }
 };
 
-const File = (name, thumbnail, date, size = '') => {
+const File = (name, thumbnail, date = '', size = '') => {
     const container = document.createElement('div');
     container.classList.add('file');
     if (typeof thumbnail == 'string') {
@@ -59,10 +59,12 @@ const File = (name, thumbnail, date, size = '') => {
     container.append(label);
     label.textContent = name;
 
-    const dateLabel = document.createElement('span');
-    container.append(dateLabel)
-    dateLabel.classList.add('file-info');
-    dateLabel.textContent = format(new Date(date), 'P');
+    if (date) {
+        const dateLabel = document.createElement('span');
+        container.append(dateLabel)
+        dateLabel.classList.add('file-info');
+        dateLabel.textContent = format(new Date(date), 'P');
+    }
 
     if (size) {
         const sizeLabel = document.createElement('span');
@@ -96,7 +98,8 @@ const appWindow = (() => {
         const openFile = (url, type, filename) => {
             const file = generateFile(url, type, filename);
             setMainContent(file);
-            if (filename == 'none') header.classList.add('hidden');
+            if (filename == 'none') hideHeader();
+            else showHeader();
         };
 
         const container = document.createElement('div');
@@ -121,22 +124,20 @@ const appWindow = (() => {
                 span,
             );
 
-            const setText = (text) => span.textContent = `Gina Henderson/Files/${text}`;
-            const resetText = () => span.textContent = 'Gina Henderson/Files';
+            const setText = (text) => span.textContent = `Gina Henderson/Files${text? '/' + text:''}`;
 
             return {
                 header,
                 setText,
-                resetText,
             }
         })();
         const main = document.createElement('main');
 
-        const homePage = (() => {
-            const container = document.createElement('div');
-
-            return container;
-        })();
+        const backButton = icon('charm:chevron-left', ['app-back-button']);
+        backButton.addEventListener('click', () => {
+            fileHistory.goBackwards();
+            console.log(fileHistory.getPast())
+        });
 
         // Folders
         const documents = (() => {
@@ -155,7 +156,7 @@ const appWindow = (() => {
                     type: 'application/pdf',
                     filename: 'Resume.pdf',
                 },
-            ]
+            ];
 
             files.forEach((file) => {
                 file.thumbnail.addEventListener('click', () => {
@@ -174,7 +175,10 @@ const appWindow = (() => {
 
             container.append(description);
 
-            return container;
+            return {
+                inner: container,
+                title: 'Documents',
+            };
         })();
         const webApps = (() => {
             const container = document.createElement('div');
@@ -217,40 +221,120 @@ const appWindow = (() => {
                     openFile(
                         file.url,
                         file.type,
-                        `Web Apps/${file.filename}`,
+                        'none',
                     );
                 })
                 container.append(file.thumbnail);
             })
 
-            return container;
+            const description = document.createElement('span');
+            description.classList.add('files-description');
+            description.textContent = '3 items';
+
+            container.append(description);
+
+            return {
+                inner: container,
+                title: 'Web Apps',
+            };
         })();
         const games = (() => {
             const container = document.createElement('div');
+            container.textContent = 'Games!!!!'
 
-            return container;
+            return {
+                inner: container,
+                title: 'Games',
+            }
         })();
         const trash = (() => {
             const container = document.createElement('div');
+            container.textContent = 'traaaaash'
 
-            return container;
+            return {
+                inner: container,
+                title: 'Recycling Bin',
+            };
+        })();
+
+        const homePage = (() => {
+            const container = document.createElement('div');
+
+            const folders = [
+                {
+                    thumbnail: File(
+                        'Documents',
+                        'jam:folder-f',
+                        '',
+                        '1 item',
+                    ),
+                    content: documents,
+                },
+                {
+                    thumbnail: File(
+                        'Web Apps',
+                        'jam:folder-f',
+                        '',
+                        '3 items',
+                    ),
+                    content: webApps,
+                },
+                {
+                    thumbnail: File(
+                        'Games',
+                        'jam:folder-f',
+                        '',
+                        '4 items',
+                    ),
+                    content: games,
+                },
+                {
+                    thumbnail: File(
+                        'Recycling Bin',
+                        'jam:folder-f',
+                        '',
+                        '1 item',
+                    ),
+                    content: trash,
+                },
+            ]
+
+            folders.forEach((folder) => {
+                folder.thumbnail.addEventListener('click', () => {
+                    setMainContent(folder.content);
+                })
+                container.append(folder.thumbnail);
+            })
+
+            return {
+                inner: container,
+                title: '',
+            };
         })();
 
         container.append(
             header.header,
             main,
+            backButton,
         )
+
+        const hideHeader = () => {
+            header.header.classList.add('hidden');
+            backButton.classList.add('shown');
+        }
+        const showHeader = () => {
+            header.header.classList.remove('hidden');
+            backButton.classList.remove('shown');
+        }
 
         const setMainContent = (content) => {
             main.innerHTML = '';
             main.append(content.inner);
             header.setText(content.title);
+            fileHistory.movePages(content);
         }
 
-        const resetMainContent = () => {
-            main.innerHTML = '';
-            header.resetText();
-        }
+        const resetMainContent = () => setMainContent(homePage);
 
         const modal = Modal.create(
             ['file-explorer'],
@@ -259,6 +343,8 @@ const appWindow = (() => {
 
         const open = () => Modal.open(modal);
         const close = () => Modal.close(modal);
+
+        setMainContent(homePage);
 
         return {
             container,
