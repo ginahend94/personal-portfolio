@@ -1,4 +1,4 @@
-export default send = (e, ...args) => {
+export default (e, args) => {
     e.preventDefault();
     console.log("sending...");
     fetch("https://formsubmit.co/ajax/gina@ginahenderson.me", {
