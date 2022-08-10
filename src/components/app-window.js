@@ -1,4 +1,4 @@
-import { format, set } from "date-fns";
+import { format, set, sub } from "date-fns";
 import icon from "../functions/icon";
 import Modal from "./modal";
 import GinaResume from '../files/Gina_Henderson_Resume.pdf';
@@ -8,6 +8,8 @@ import Minecraft from '../images/minecraft.png';
 import GinaTharinIcon from '../images/gina-tharin-favicon.png';
 import GinaTharin from '../images/ginatharin.png';
 import Caffeine from '../images/caffeine.png';
+import GinaContact from '../images/GinaHenderson.jpg';
+import sendEmail from "../functions/sendEmail";
 
 function History() {
     const past = [];
@@ -133,7 +135,7 @@ const appWindow = (() => {
                 exit,
             );
 
-            const setText = (text) => span.textContent = `Gina Henderson/Files${text? '/' + text:''}`;
+            const setText = (text) => span.textContent = `Gina Henderson/Files${text ? '/' + text : ''}`;
 
             return {
                 header,
@@ -758,9 +760,160 @@ const appWindow = (() => {
         }
     })();
 
+    const contact = (() => {
+        const container = document.createElement('div');
+
+        const contactCard = (() => {
+            const container = document.createElement('div');
+
+            const letters = document.createElement('div');
+            letters.classList.add('letters');
+            for (let i = 0; i < 26; i++) {
+                let chr = String.fromCharCode(65 + i);
+                const span = document.createElement('span');
+                span.textContent = chr;
+                if (chr == 'H') span.classList.add('h');
+                letters.append(span);
+            }
+            container.append(letters);
+
+            const top = document.createElement('div');
+            container.append(top);
+            top.classList.add('top');
+            const img = new Image();
+            img.src = GinaContact;
+            img.classList.add('contact-photo');
+            const h2 = document.createElement('h2');
+            h2.textContent = 'Gina Henderson';
+            h2.classList.add('contact-name');
+            top.append(img, h2);
+
+            const github = document.createElement('a');
+            github.append(icon('fa-github'));
+            github.href = 'https://github.com/ginahend94';
+            github.target = '_blank';
+            const twitter = document.createElement('a');
+            twitter.append(icon('fa:twitter'));
+            twitter.href = 'https://twitter.com/ginahend94';
+            twitter.target = '_blank';
+            const linkedin = document.createElement('a');
+            linkedin.append(icon('fa-linkedin-square'));
+            linkedin.href = 'https://linkedin.com/in/gina-henderson';
+            linkedin.target = '_blank';
+
+            const p1 = document.createElement('p');
+            const p2 = document.createElement('p');
+            const p3 = document.createElement('p');
+            const p4 = document.createElement('p');
+
+            p1.textContent = 'I am a front-end software developer based out of Nashville, TN. I first began to learn web design from a book I found when I was ten years old. Ever since then, I\'ve had a passion for learning and experimenting with new technologies in web design.'
+            p2.textContent = 'The languages I work with are mainly HTML, CSS, and JavaScript. I am also experienced with React.js and Node.js., and have some experience with Java and Python.';
+            p3.textContent = 'Music is the second great love of my life (third, if you count my dogs). I am a singer-songwriter outside of work, and I find coding scratches that creative itch in my brain in much the same way as songwriting.';
+            p4.textContent = 'The fourth great love of my life is Minecraft. When I\'m not coding or writing music, I\'m playing Minecraft.';
+
+            const info = [
+                {
+                    label: 'Email',
+                    text: 'gina@ginahenderson.me',
+                },
+                {
+                    label: 'Address',
+                    text: 'Nashville, TN, USA',
+                },
+                {
+                    label: 'GitHub',
+                    text: github,
+                },
+                {
+                    label: 'LinkedIn',
+                    text: linkedin,
+                },
+                {
+                    label: 'Twitter',
+                    text: twitter,
+                },
+                {
+                    label: 'Website',
+                    text: 'ginahenderson.me (you are here!)',
+                },
+                {
+                    label: 'About',
+                    text: (p1, p2, p3, p4),
+                }
+            ]
+
+            const table = document.createElement('table');
+            container.append(table);
+            info.forEach((row) => {
+                const tr = document.createElement('tr');
+                const td1 = document.createElement('td');
+                td1.append(row.label);
+                const td2 = document.createElement('td');
+                td2.append(row.text);
+                tr.append(td1, td2);
+                table.append(tr);
+            });
+
+            const h3 = document.createElement('h3');
+            container.append(h3);
+            h3.textContent = 'Contact me!';
+
+            const contactForm = document.createElement('form');
+            container.append(contactForm);
+            const name = document.createElement('input');
+            name.type = 'text';
+            name.name = 'name';
+            name.placeholder = 'Your Name';
+
+            const email = document.createElement('input');
+            email.type = 'email';
+            email.name = 'email';
+            email.placeholder = 'your-email@example.com';
+            email.required = true;
+
+            const subject = document.createElement('input');
+            subject.name = 'subject';
+            subject.placeholder = 'Subject';
+
+            const message = document.createElement('textarea');
+            message.name = 'message';
+            message.placeholder = 'Your message here...';
+            message.required = true;
+
+            const submit = document.createElement('button');
+            sub.textContent = 'Send';
+
+            contactForm.append(
+                name,
+                email,
+                subject,
+                message,
+                submit,
+            )
+
+            return container;
+        })();
+
+        container.append(contactCard);
+
+        const modal = Modal.create(
+            ['contact-card'],
+            container,
+        )
+
+        const open = () => Modal.open(modal);
+        const close = () => Modal.close(modal);
+
+        return {
+            open,
+            close,
+        };
+    })();
+
     return {
         fileExplorer,
         browser,
+        contact,
     };
 })();
 

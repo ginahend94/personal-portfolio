@@ -543,6 +543,10 @@
     .file-explorer.games-container {
         background-color: #45007A;
     }
+
+    .h {
+        background-color: white;
+    }
 }
 
 /* DESKTOP */
