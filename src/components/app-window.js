@@ -764,7 +764,11 @@ const appWindow = (() => {
         const container = document.createElement('div');
         const contactCard = (() => {
             const container = document.createElement('div');
-        container.classList.add('container');
+            container.classList.add('container');
+
+            const closeBtn = icon('ep:close-bold', ['close-button']);
+            container.append(closeBtn);
+            closeBtn.addEventListener('click', () => close());
 
             const letters = document.createElement('div');
             letters.classList.add('letters');
@@ -808,10 +812,10 @@ const appWindow = (() => {
             const p4 = document.createElement('p');
             about.append(p1, p2, p3, p4);
 
-            p1.textContent = 'I am a front-end software developer based out of Nashville, TN. I first began to learn web design from a book I found when I was ten years old. Ever since then, I\'ve had a passion for learning and experimenting with new technologies in web design.'
-            // p2.textContent = 'The languages I work with are mainly HTML, CSS, and JavaScript. I am also experienced with React.js and Node.js., and have some experience with Java and Python.';
-            p3.textContent = 'Music is the second great love of my life (third, if you count my dogs). I am a singer-songwriter outside of work, and I find coding scratches that creative itch in my brain in much the same way as songwriting.';
-            p4.textContent = 'The fourth great love of my life is Minecraft. When I\'m not coding or writing music, I\'m playing Minecraft.';
+            p1.innerHTML = 'I am a front-end software developer based out of <span class="highlight">Nashville, TN.</span> I first began to learn web design from a book I found when I was ten years old. Ever since then, I\'ve had a passion for learning and <span class="highlight">experimenting with new technologies</span> in web design.'
+            // p2.innerHTML = 'The languages I work with are mainly HTML, CSS, and JavaScript. I am also experienced with React.js and Node.js., and have some experience with Java and Python.';
+            p3.innerHTML = 'Music is the second great love of my life (third, if you count my dogs). I am a singer-songwriter outside of work, and I find <span class="highlight">coding scratches that creative itch</span> in my brain in much the same way as songwriting.';
+            p4.innerHTML = 'The fourth great love of my life is Minecraft. When I\'m not coding or writing music, <span class="highlight">I\'m playing Minecraft.</span>';
 
             const info = [
                 {
@@ -887,12 +891,18 @@ const appWindow = (() => {
             const submit = document.createElement('button');
             submit.textContent = 'Send';
 
+            const thankYou = document.createElement('div');
+            container.append(thankYou);
+            thankYou.classList.add('thank-you');
+            thankYou.textContent = 'thank you!';
+
             contactForm.append(
                 name,
                 email,
                 subject,
                 message,
                 submit,
+                thankYou,
             )
             contactForm.addEventListener('submit', (e) => {
                 sendEmail(e, {
@@ -902,6 +912,7 @@ const appWindow = (() => {
                     message: message.value,
                 });
                 clearInputs();
+                messageSent();
             })
 
             const clearInputs = () => {
@@ -910,10 +921,17 @@ const appWindow = (() => {
                 message.value = '';
             }
 
-            const thankYou = document.createElement('div');
-            container.append(thankYou);
-            thankYou.classList.add('thank-you');
-            thankYou.textContent = 'Thank you!';
+            const messageSent = () => {
+                setTimeout(() => {
+                    thankYou.classList.add("shown");
+                }, 500);
+                // setTimeout(() => {
+                //     thankYou.classList.remove("animated");
+                // }, 2000);
+                setTimeout(() => {
+                    thankYou.classList.remove("shown");
+                }, 2500);
+            };
 
 
             return container;
