@@ -925,9 +925,6 @@ const appWindow = (() => {
                 setTimeout(() => {
                     thankYou.classList.add("shown");
                 }, 500);
-                // setTimeout(() => {
-                //     thankYou.classList.remove("animated");
-                // }, 2000);
                 setTimeout(() => {
                     thankYou.classList.remove("shown");
                 }, 2500);

@@ -2,7 +2,7 @@ import taskbar from "./taskbar";
 import { createTooltip } from "../functions/tooltip";
 import icon from "../functions/icon";
 import appWindow from "../components/app-window";
-import { nowPlaying } from "../components/now-playing";
+import Chat from "../components/chat";
 
 const fileExplorer = appWindow.fileExplorer;
 const browser = appWindow.browser;
@@ -126,7 +126,7 @@ export default (() => {
     container.classList.add('desktop');
 
     container.append(taskbar.container);
-    container.append(nowPlaying());
+    container.append(Chat.container);
     container.append(Apps.container);
 
     return { container };
