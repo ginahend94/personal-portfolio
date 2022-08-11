@@ -65,15 +65,15 @@ const Apps = (() => {
             window: contact,
             inner: null,
         },
-        {
-            name: 'Recycling Bin',
-            appIcon: 'wpf:full-trash',
-            tooltip: 'Recycling Bin',
-            classes: ['trash'],
-            title: 'Recycling Bin',
-            window: fileExplorer,
-            inner: fileExplorer.trash,
-        },
+        // {
+        //     name: 'Recycling Bin',
+        //     appIcon: 'wpf:full-trash',
+        //     tooltip: 'Recycling Bin',
+        //     classes: ['trash'],
+        //     title: 'Recycling Bin',
+        //     window: fileExplorer,
+        //     inner: fileExplorer.trash,
+        // },
     ]
 
     const appIcon = (name, appIcon, tooltip = name, classes = []) => {
