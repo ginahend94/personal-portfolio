@@ -762,9 +762,9 @@ const appWindow = (() => {
 
     const contact = (() => {
         const container = document.createElement('div');
-
         const contactCard = (() => {
             const container = document.createElement('div');
+        container.classList.add('container');
 
             const letters = document.createElement('div');
             letters.classList.add('letters');
@@ -801,13 +801,15 @@ const appWindow = (() => {
             linkedin.href = 'https://linkedin.com/in/gina-henderson';
             linkedin.target = '_blank';
 
+            const about = document.createElement('div');
             const p1 = document.createElement('p');
             const p2 = document.createElement('p');
             const p3 = document.createElement('p');
             const p4 = document.createElement('p');
+            about.append(p1, p2, p3, p4);
 
             p1.textContent = 'I am a front-end software developer based out of Nashville, TN. I first began to learn web design from a book I found when I was ten years old. Ever since then, I\'ve had a passion for learning and experimenting with new technologies in web design.'
-            p2.textContent = 'The languages I work with are mainly HTML, CSS, and JavaScript. I am also experienced with React.js and Node.js., and have some experience with Java and Python.';
+            // p2.textContent = 'The languages I work with are mainly HTML, CSS, and JavaScript. I am also experienced with React.js and Node.js., and have some experience with Java and Python.';
             p3.textContent = 'Music is the second great love of my life (third, if you count my dogs). I am a singer-songwriter outside of work, and I find coding scratches that creative itch in my brain in much the same way as songwriting.';
             p4.textContent = 'The fourth great love of my life is Minecraft. When I\'m not coding or writing music, I\'m playing Minecraft.';
 
@@ -838,7 +840,7 @@ const appWindow = (() => {
                 },
                 {
                     label: 'About',
-                    text: (p1, p2, p3, p4),
+                    text: about,
                 }
             ]
 
@@ -860,6 +862,8 @@ const appWindow = (() => {
 
             const contactForm = document.createElement('form');
             container.append(contactForm);
+
+
             const name = document.createElement('input');
             name.type = 'text';
             name.name = 'name';
@@ -868,7 +872,7 @@ const appWindow = (() => {
             const email = document.createElement('input');
             email.type = 'email';
             email.name = 'email';
-            email.placeholder = 'your-email@example.com';
+            email.placeholder = 'your.email@example.com';
             email.required = true;
 
             const subject = document.createElement('input');
@@ -881,7 +885,7 @@ const appWindow = (() => {
             message.required = true;
 
             const submit = document.createElement('button');
-            sub.textContent = 'Send';
+            submit.textContent = 'Send';
 
             contactForm.append(
                 name,
@@ -890,6 +894,27 @@ const appWindow = (() => {
                 message,
                 submit,
             )
+            contactForm.addEventListener('submit', (e) => {
+                sendEmail(e, {
+                    name: name.value,
+                    email: email.value,
+                    subject: subject.value,
+                    message: message.value,
+                });
+                clearInputs();
+            })
+
+            const clearInputs = () => {
+                const inputs = container.querySelectorAll('input');
+                inputs.forEach(input => input.value = '');
+                message.value = '';
+            }
+
+            const thankYou = document.createElement('div');
+            container.append(thankYou);
+            thankYou.classList.add('thank-you');
+            thankYou.textContent = 'Thank you!';
+
 
             return container;
         })();
@@ -899,7 +924,7 @@ const appWindow = (() => {
         const modal = Modal.create(
             ['contact-card'],
             container,
-        )
+        );
 
         const open = () => Modal.open(modal);
         const close = () => Modal.close(modal);
@@ -908,6 +933,7 @@ const appWindow = (() => {
             open,
             close,
         };
+
     })();
 
     return {
