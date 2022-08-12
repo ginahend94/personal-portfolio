@@ -15,6 +15,8 @@ export default () => {
             body.removeChild(splash.container);
             Chat.showIntro();
         }, 4000);
+    } else {
+        Chat.renderHistory();
     }
 
     body.append(desktop.container);

@@ -1,4 +1,9 @@
 import GinaHenderson from '../images/GinaHenderson.jpg';
+import save from '../functions/save';
+import load from '../functions/load';
+// import Notification from '../files/notification.wav';
+// import cena from '../files/and-his-name-is-john-cena-1.mp3';
+
 export default (() => {
     const container = document.createElement('div');
     container.classList.add('chat', 'container');
@@ -33,7 +38,7 @@ export default (() => {
     container.append(header, chatWindow, footer);
 
     const messages = [
-        'Hi! Welcome to my site!',
+        'Hi! Welcome to my portfolio!',
         'Thanks so much for stopping by.',
         'You can check out some of my work by opening any of the apps you see.',
         'Have fun, and feel free to look at my contact card to get in touch!',
@@ -41,19 +46,19 @@ export default (() => {
 
     // append chat history to main box
 
-    const chatHistory = [
-        { // test
-            isSent: true,
-            text: 'This is a test message!',
-        },
-        { // test
-            isSent: false,
-            text: 'Did you mean "text message"?',
-        },
-        { // test
-            isSent: true,
-            text: 'NO. TEST message!',
-        },
+    const chatHistory = load('chatHistory') || [
+        // { // test
+        //     isSent: true,
+        //     text: 'This is a test message!',
+        // },
+        // { // test
+        //     isSent: false,
+        //     text: 'Did you mean "text message"?',
+        // },
+        // { // test
+        //     isSent: true,
+        //     text: 'NO. TEST message!',
+        // },
     ]
 
     const scrollToBottom = () => {
@@ -72,17 +77,17 @@ export default (() => {
         createMessageNode(text, isSent);
         scrollToBottom();
         chatHistory.push({ isSent, text });
-        console.log(chatHistory)
+        save('chatHistory', chatHistory);
+        console.log(chatHistory);
     }
-    
-    chatHistory.forEach((message) => {
-        createMessageNode(message.text, message.isSent);
-    })
+
 
     const sendMessage = () => {
         if (!chatInput.value) return;
         addMessage(chatInput.value, true);
         chatInput.value = '';
+        // TEST
+        setTimeout(async () => receiveMessage(await getText()), 1000);
     }
     button.addEventListener('click', sendMessage)
     chatInput.addEventListener('keydown', (e) => {
@@ -90,18 +95,16 @@ export default (() => {
         sendMessage();
     });
     const showIndicator = (message) => {
-        // type 5 characters per second
         typingIndicator.classList.remove('hidden');
         scrollToBottom();
         let timeout;
-        if (message.length <= 200) {
+        if (message.length <= 50) {
             timeout = 500;
         }
-        if (message.length > 200 && message.length <= 500) {
-            console.log('med');
+        if (message.length > 50 && message.length <= 200) {
             timeout = 2000;
         }
-        if (message.length > 500) {
+        if (message.length > 200) {
             console.log('long');
             timeout = 3000;
         }
@@ -111,8 +114,14 @@ export default (() => {
 
         return timeout;
     };
+
+    const notification = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3'); // TEMP
+
     const receiveMessage = (text) => {
-        setTimeout(() => addMessage(text), showIndicator(text));
+        setTimeout(() => {
+            addMessage(text);
+            notification.play();
+        }, showIndicator(text));
     }
 
     const showIntro = () => {
@@ -122,16 +131,23 @@ export default (() => {
             })(i);
         }
     }
+    const renderHistory = () => {
+        chatHistory.forEach((message) => {
+            createMessageNode(message.text, message.isSent);
+            scrollToBottom();
+        })
+    }
 
-    const getText = () => {
-        return fetch(`https://jsonplaceholder.typicode.com/comments`)
-            .then(resp => resp.json())
-            .then(data => data[Math.floor(Math.random() * data.length)].body)
-            .catch(err => console.log(err));
+    const getText = async () => {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/comments`);
+        const data = await response.json();
+        const obj = data[Math.floor(Math.random() * data.length)];
+        return obj.body;
     }
 
     return {
         container,
-        showIntro
+        showIntro,
+        renderHistory,
     };
 })()
