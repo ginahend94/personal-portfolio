@@ -1,8 +1,8 @@
 import GinaHenderson from '../images/GinaHenderson.jpg';
 import save from '../functions/save';
 import load from '../functions/load';
+import chatbot from '../functions/chatbot';
 // import Notification from '../files/notification.wav';
-// import cena from '../files/and-his-name-is-john-cena-1.mp3';
 
 export default (() => {
     const container = document.createElement('div');
@@ -78,16 +78,16 @@ export default (() => {
         scrollToBottom();
         chatHistory.push({ isSent, text });
         save('chatHistory', chatHistory);
-        console.log(chatHistory);
     }
-
 
     const sendMessage = () => {
         if (!chatInput.value) return;
+        let send = chatInput.value;
         addMessage(chatInput.value, true);
+        setTimeout(async () => receiveMessage(await chatbot(send)), 1000);
+        // setTimeout(async () => chatbot(chatInput.value), 1000);
         chatInput.value = '';
         // TEST
-        setTimeout(async () => receiveMessage(await getText()), 1000);
     }
     button.addEventListener('click', sendMessage)
     chatInput.addEventListener('keydown', (e) => {

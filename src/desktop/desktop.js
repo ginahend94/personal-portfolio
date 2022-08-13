@@ -3,6 +3,7 @@ import { createTooltip } from "../functions/tooltip";
 import icon from "../functions/icon";
 import appWindow from "../components/app-window";
 import Chat from "../components/chat";
+import soundControl from "../functions/soundControl";
 
 const fileExplorer = appWindow.fileExplorer;
 const browser = appWindow.browser;
@@ -125,6 +126,7 @@ export default (() => {
     const container = document.createElement('div');
     container.classList.add('desktop');
 
+    container.append(soundControl);
     container.append(taskbar.container);
     container.append(Chat.container);
     container.append(Apps.container);
