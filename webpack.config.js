@@ -21,19 +21,22 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /.(png|svg|jpg|jpeg|gif)$/i,
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
             },
             {
-                test: /.pdf$/i,
+                test: /\.pdf$/i,
                 use: 'file-loader',
             },
             {
-
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource',
 
             },
+            {
+                test: /\.(ogg|mp3|wav|mpe?g)$/i,
+                use: 'file-loader',
+              }
         ],
     },
     output: {
