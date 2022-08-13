@@ -7,7 +7,7 @@ export default (() => {
     label.append(checkbox);
 
     checkbox.type = 'checkbox';
-    checkbox.checked = 'false';
+    checkbox.checked = false;
     const mute = icon('ph:speaker-simple-x-fill', ['mute']);
     const play = icon('ph:speaker-simple-high-fill', ['play', 'hidden']);
 
