@@ -852,6 +852,10 @@
         padding:5px;
     }
 
+    .taskbar > span .volume {
+        width:20px;
+    }
+
     .taskbar > span:hover {
         border: solid 1px rgba(0, 0, 0, .2);
         border-radius: 5px;

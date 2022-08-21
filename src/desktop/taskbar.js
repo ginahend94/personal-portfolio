@@ -30,7 +30,7 @@ const Clock = (() => {
 
 export const mute = (() => {
     let muted = false;
-    const toggleMuted = () => isMuted = !isMuted;
+    const toggleMuted = () => muted = !muted;
     const isMuted = () => muted;
 
     return {
@@ -64,12 +64,21 @@ export default (() => {
     container.append(wifi);
     createTooltip(wifi, 'Wi-Fi connected');
 
-    const volume = document.createElement('span')
-    volume.append(icon('fa6-solid:volume-high', ['volume']));
+    const volume = document.createElement('span');
+    createTooltip(volume, 'Volume: 100%');
+    const volIcon = icon('fa6-solid:volume-high', ['volume']);
+    const volMuted = icon('fa6-solid:volume-xmark', ['volume', 'muted']);
+    volume.append(volIcon);
     container.append(volume);
-    createTooltip(volume, ['Volume: 100%']);
     volume.addEventListener('click', () => {
-
+        mute.toggleMuted();
+        volume.innerHTML = '';
+        if (mute.isMuted()) {
+            createTooltip(volume, 'Volume: 0%');
+            return volume.append(volMuted);
+        }
+        createTooltip(volume, 'Volume: 100%');
+        return volume.append(volIcon);
     })
 
     container.append(Clock.container);
