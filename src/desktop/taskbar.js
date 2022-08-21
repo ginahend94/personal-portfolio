@@ -28,6 +28,17 @@ const Clock = (() => {
 
 })();
 
+export const mute = (() => {
+    let muted = false;
+    const toggleMuted = () => isMuted = !isMuted;
+    const isMuted = () => muted;
+
+    return {
+        isMuted,
+        toggleMuted
+    }
+})()
+
 export default (() => {
 
     const container = document.createElement('div');
@@ -42,21 +53,29 @@ export default (() => {
     const appTray = document.createElement('div');
     container.append(appTray);
     appTray.classList.add('app-tray');
-    
 
-    const message = icon('jam-message-f');
+    const message = document.createElement('span');
+    message.append(icon('jam-message-f', ['messages']));
     container.append(message);
-    message.classList.add('messages');
+    createTooltip(message, 'In a conversation with Gina Henderson');
 
-    const wifi = icon('fa6-solid:wifi')
+    const wifi = document.createElement('span');
+    wifi.append(icon('fa6-solid:wifi', ['wifi']));
     container.append(wifi);
-    wifi.classList.add('wifi');
+    createTooltip(wifi, 'Wi-Fi connected');
 
-    const volume = icon('fa6-solid:volume-high');
+    const volume = document.createElement('span')
+    volume.append(icon('fa6-solid:volume-high', ['volume']));
     container.append(volume);
-    volume.classList.add('volume');
+    createTooltip(volume, ['Volume: 100%']);
+    volume.addEventListener('click', () => {
+
+    })
 
     container.append(Clock.container);
+
+    const audio = document.querySelectorAll('audio');
+    console.log(audio)
 
     return { container }
 })()
