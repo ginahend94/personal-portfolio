@@ -83,8 +83,5 @@ export default (() => {
 
     container.append(Clock.container);
 
-    const audio = document.querySelectorAll('audio');
-    console.log(audio)
-
     return { container }
 })()
