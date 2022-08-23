@@ -24,7 +24,8 @@ const Apps = (() => {
     const apps = [
         {
             name: 'Resume',
-            appIcon: 'jam:folder-f',
+            // appIcon: 'jam:folder-f',
+            appIcon: 'ic:twotone-folder',
             tooltip: 'Resume',
             classes: ['documents'],
             title: 'Documents',
@@ -51,7 +52,8 @@ const Apps = (() => {
         },
         {
             name: 'Games',
-            appIcon: 'jam:folder-f',
+            // appIcon: 'jam:folder-f',
+            appIcon: 'ic:twotone-folder',
             tooltip: 'Games',
             classes: ['games'],
             title: 'Games',
@@ -87,7 +89,7 @@ const Apps = (() => {
         container.append(appName);
         appName.textContent = name;
 
-        createTooltip(container, tooltip);
+        //createTooltip(container, tooltip);
 
         return container;
     }
@@ -128,9 +130,9 @@ export default (() => {
     container.classList.add('desktop');
 
     //container.append(soundControl);
+    container.append(taskbar.container);
     container.append(Chat.container);
     container.append(Apps.container);
-    container.append(taskbar.container);
 
     //dragWindow(container)
 
