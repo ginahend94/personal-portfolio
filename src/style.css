@@ -904,6 +904,7 @@
 
     .chat.container {
         height: 500px;
+        max-height:calc(100% - 70px);
         position: absolute;
         right:10px;
     }
