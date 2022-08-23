@@ -110,21 +110,6 @@ const Apps = (() => {
     return { container }
 })();
 
-const isMobile = () => {
-    const mediaQuery = window.matchMedia('(max-width:775px)');
-    let mobile = mediaQuery.matches;
-    mediaQuery.addEventListener('change', e => {
-        if (e.matches) {
-            console.log('Mobile');
-        }
-        else {
-            console.log('Desktop');
-        }
-        mobile = e.matches;
-    })
-    return mobile;
-}
-
 export default (() => {
     const container = document.createElement('div');
     container.classList.add('desktop');

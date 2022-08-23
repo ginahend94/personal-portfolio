@@ -947,8 +947,28 @@
     .modal {
         position: absolute;
         z-index: 99999;
-        border:solid 2px var(--main-color);
+        border:solid 3px var(--main-color);
         background-color: white;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        transition: .2s;
+        width:100%;
+        height:calc(100% - 50px);
+        overflow: auto;
+        min-height:150px;
+        min-width: 250px;
+    }
+    .drag-bar {
+        padding:5px 0;
+        display: flex;
+        background-color: var(--main-color);
+        color: white;
+        user-select: none;
+    }
+    .drag-bar span {
+        flex:auto;
+        text-align: center;
+    }
+    .modal .app-exit, .modal .app-back-button {
+        display: none;
     }
 }

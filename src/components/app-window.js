@@ -10,6 +10,7 @@ import GinaTharin from '../images/ginatharin.png';
 import Caffeine from '../images/caffeine.png';
 import GinaContact from '../images/GinaHenderson.jpg';
 import sendEmail from "../functions/sendEmail";
+import isMobile from "../functions/isMobile";
 
 function History() {
     const past = [];
@@ -106,7 +107,8 @@ const appWindow = (() => {
         const openFile = (url, type, filename) => {
             const file = generateFile(url, type, filename);
             setMainContent(file);
-            if (filename == 'none') hideHeader();
+            // if (filename == 'none') hideHeader();
+            if (isMobile()) hideHeader();
             else showHeader();
         };
 
@@ -198,7 +200,7 @@ const appWindow = (() => {
                         'mdi:checkbox-marked-outline',
                         '2022-07-09',
                     ),
-                    url: 'https://ginahenderson.me/to-do-list/',
+                    url: 'https://ginahenderson.me/diddit/',
                     type: 'text/html',
                     filename: 'Diddit',
                 },
@@ -478,7 +480,7 @@ const appWindow = (() => {
             const diddit = content(
                 'diddit',
                 Diddit,
-                `<a href="https://ginahenderson.me/to-do-list" target="_blank">Diddit</a> is a CRUD to-do list app that utilizes local storage to maintain the user's unput. It also features UI customization features.`,
+                `<a href="https://ginahenderson.me/diddit" target="_blank">Diddit</a> is a CRUD to-do list app that utilizes local storage to maintain the user's unput. It also features UI customization features.`,
                 'Diddit',
                 'To-Do List Web App'
             );
