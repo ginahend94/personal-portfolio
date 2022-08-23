@@ -1,7 +1,7 @@
 import { format, set, sub } from "date-fns";
 import icon from "../functions/icon";
 import Modal from "./modal";
-import GinaResume from '../files/Gina_Henderson_Resume.pdf';
+import GinaResume from '../files/Gina Henderson Resume Web.pdf';
 import Diddit from '../images/diddit.png';
 import Rainey from '../images/rainey.png';
 import Minecraft from '../images/minecraft.png';
@@ -231,7 +231,7 @@ const appWindow = (() => {
                     openFile(
                         file.url,
                         file.type,
-                        'none',
+                        file.filename,
                     );
                 })
                 container.append(file.thumbnail);
@@ -322,7 +322,8 @@ const appWindow = (() => {
         })();
         const trash = (() => {
             const container = document.createElement('div');
-            container.textContent = 'traaaaash'
+            container.classList.add('trash-bin');
+            container.innerHTML = 'How many programmers does it take to change a light bulb?<br><br> None – It\'s a hardware problem.'
 
             return {
                 inner: container,
@@ -337,7 +338,7 @@ const appWindow = (() => {
                 {
                     thumbnail: File(
                         'Documents',
-                        'jam:folder-f',
+                        'ic:twotone-folder',
                         '',
                         '1 item',
                     ),
@@ -346,7 +347,7 @@ const appWindow = (() => {
                 {
                     thumbnail: File(
                         'Web Apps',
-                        'jam:folder-f',
+                        'ic:twotone-folder',
                         '',
                         '3 items',
                     ),
@@ -355,7 +356,7 @@ const appWindow = (() => {
                 {
                     thumbnail: File(
                         'Games',
-                        'jam:folder-f',
+                        'ic:twotone-folder',
                         '',
                         '4 items',
                     ),
@@ -364,7 +365,7 @@ const appWindow = (() => {
                 {
                     thumbnail: File(
                         'Recycling Bin',
-                        'jam:folder-f',
+                        'ic:twotone-folder',
                         '',
                         '1 item',
                     ),
@@ -713,15 +714,21 @@ const appWindow = (() => {
             const exit = icon('radix-icons:exit', ['browser-exit']);
             exit.title = 'Exit app';
             exit.addEventListener('click', () => close());
-            container.append(backButton, forwardButton, home, exit);
+            container.append(
+                backButton,
+                forwardButton,
+                home,
+            );
+            if (isMobile()) container.append(exit);
             return container;
         })();
 
         container.append(
             header.container,
             main,
-            footer,
         );
+        if (isMobile()) container.append(footer);
+        else (header.container.prepend(footer));
 
         const browserHistory = History();
 
