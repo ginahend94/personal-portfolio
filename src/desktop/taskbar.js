@@ -46,9 +46,9 @@ export default (() => {
 
     const startButton = document.createElement('button');
     container.append(startButton);
-    startButton.append(icon('bi:moon-stars-fill'));
+    startButton.append(icon('bi:moon-stars-fill', ['moon-logo']));
     startButton.classList.add('start-button');
-    createTooltip(startButton, 'Start');
+    // createTooltip(startButton, 'Start');
 
     const appTray = document.createElement('div');
     container.append(appTray);

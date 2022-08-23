@@ -4,6 +4,7 @@ import icon from "../functions/icon";
 import appWindow from "../components/app-window";
 import Chat from "../components/chat";
 import soundControl from "../functions/soundControl";
+import { dragWindow } from "../functions/drag";
 
 const fileExplorer = appWindow.fileExplorer;
 const browser = appWindow.browser;
@@ -126,10 +127,12 @@ export default (() => {
     const container = document.createElement('div');
     container.classList.add('desktop');
 
-    container.append(soundControl);
-    container.append(taskbar.container);
+    //container.append(soundControl);
     container.append(Chat.container);
     container.append(Apps.container);
+    container.append(taskbar.container);
+
+    //dragWindow(container)
 
     return { container };
 })();

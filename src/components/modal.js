@@ -1,4 +1,4 @@
-import { dragModal } from "../functions/drag";
+import { dragWindow } from "../functions/drag";
 import generateId from "../functions/generateId";
 
 export default (() => {
@@ -13,18 +13,18 @@ export default (() => {
 
         const modal = document.createElement('div');
         modalContainer.append(modal);
-        modal.classList.add('modal', ...classes);
+        modal.classList.add('modal', 'window', ...classes);
 
-        if (draggable) {
+        //if (draggable) {
             const dragBar = document.createElement('div');
             modal.append(dragBar);
             dragBar.classList.add('drag-bar');
-        }
+        //}
 
         modal.append(modalBody);
         modalBody.classList.add('modal-inner');
 
-        if (draggable) dragModal(modalContainer);
+        if (draggable) dragWindow(modalContainer);
 
         const getId = () => id;
 

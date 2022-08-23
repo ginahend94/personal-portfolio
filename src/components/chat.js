@@ -7,9 +7,10 @@ import { mute } from '../desktop/taskbar';
 
 export default (() => {
     const container = document.createElement('div');
-    container.classList.add('chat', 'container');
+    container.classList.add('chat', 'container', 'window');
 
     const header = document.createElement('header');
+    header.classList.add('drag-bar');
     const pic = new Image();
     pic.src = GinaHenderson;
     pic.alt = 'GH';
