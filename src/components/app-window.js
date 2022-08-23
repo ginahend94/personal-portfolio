@@ -413,6 +413,7 @@ const appWindow = (() => {
         const modal = Modal.create(
             ['file-explorer'],
             container,
+            'File Explorer',
         );
 
         const open = () => Modal.open(modal);
@@ -747,6 +748,7 @@ const appWindow = (() => {
         const modal = Modal.create(
             ['browser'],
             container,
+            'My Work',
         );
 
         const open = () => Modal.open(modal);
@@ -939,6 +941,7 @@ const appWindow = (() => {
         const modal = Modal.create(
             ['contact-card'],
             container,
+            'Contact Me',
         );
 
         const open = () => Modal.open(modal);

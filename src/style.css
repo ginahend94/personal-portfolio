@@ -946,6 +946,9 @@
     }
     .modal {
         position: absolute;
-        z-index: 999909;
+        z-index: 99999;
+        border:solid 2px var(--main-color);
+        background-color: white;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     }
 }

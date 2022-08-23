@@ -1,4 +1,5 @@
 import { dragWindow } from "../functions/drag";
+import icon from "../functions/icon";
 import generateId from "../functions/generateId";
 
 export default (() => {
@@ -16,9 +17,14 @@ export default (() => {
         modal.classList.add('modal', 'window', ...classes);
 
         //if (draggable) {
-            const dragBar = document.createElement('div');
-            modal.append(dragBar);
-            dragBar.classList.add('drag-bar');
+        const dragBar = document.createElement('div');
+        const maximize = icon('fluent:maximize-16-regular', ['maximize']);
+        const minimize = icon('fluent:subtract-16-regular', ['minimize']);
+        const close = icon('fluent:dismiss-16-regular', ['close']);
+        const windowName = document.createElement('span');
+        
+        modal.append(dragBar);
+        dragBar.classList.add('drag-bar');
         //}
 
         modal.append(modalBody);
@@ -28,16 +34,16 @@ export default (() => {
 
         const getId = () => id;
 
-        return { modalContainer, id:getId };
+        return { modalContainer, id: getId };
     };
 
     const closeModal = modal => {
         if (document.body.contains(modal.modalContainer)) document.body.removeChild(modal.modalContainer);
     };
-    
+
     const openModal = modal => {
         document.body.append(modal.modalContainer);
     };
 
-    return { create:Modal, open:openModal, close:closeModal }
+    return { create: Modal, open: openModal, close: closeModal }
 })();
