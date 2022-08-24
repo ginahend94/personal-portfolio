@@ -2,13 +2,15 @@ import GinaHenderson from '../images/GinaHenderson.jpg';
 import save from '../functions/save';
 import load from '../functions/load';
 import chatbot from '../functions/chatbot';
-// import Notification from '../files/notification.wav';
+import Notification from '../files/notification.mp3';
+import { mute } from '../desktop/taskbar';
 
 export default (() => {
     const container = document.createElement('div');
-    container.classList.add('chat', 'container');
+    container.classList.add('chat', 'container', 'window');
 
     const header = document.createElement('header');
+    header.classList.add('drag-bar');
     const pic = new Image();
     pic.src = GinaHenderson;
     pic.alt = 'GH';
@@ -115,12 +117,25 @@ export default (() => {
         return timeout;
     };
 
-    const notification = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-message-pop-alert-2354.mp3'); // TEMP
+    const context = new AudioContext();
+    let clip;
+    (async () => {
+        const resp = await fetch(Notification);
+        const arrayBuffer = await resp.arrayBuffer();
+        const audioBuffer = await context.decodeAudioData(arrayBuffer);
+        return clip = audioBuffer;
+    })()
+    const notification = () => {
+        const playClip = context.createBufferSource();
+        playClip.buffer = clip;
+        playClip.connect(context.destination);
+        playClip.start(context.currentTime);
+    }
 
     const receiveMessage = (text) => {
         setTimeout(() => {
             addMessage(text);
-            notification.play();
+            if (!mute.isMuted()) notification();
         }, showIndicator(text));
     }
 

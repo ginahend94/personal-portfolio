@@ -4,6 +4,7 @@ import icon from "../functions/icon";
 import appWindow from "../components/app-window";
 import Chat from "../components/chat";
 import soundControl from "../functions/soundControl";
+import { dragWindow } from "../functions/drag";
 
 const fileExplorer = appWindow.fileExplorer;
 const browser = appWindow.browser;
@@ -23,7 +24,8 @@ const Apps = (() => {
     const apps = [
         {
             name: 'Resume',
-            appIcon: 'jam:folder-f',
+            // appIcon: 'jam:folder-f',
+            appIcon: 'ic:twotone-folder',
             tooltip: 'Resume',
             classes: ['documents'],
             title: 'Documents',
@@ -50,7 +52,8 @@ const Apps = (() => {
         },
         {
             name: 'Games',
-            appIcon: 'jam:folder-f',
+            // appIcon: 'jam:folder-f',
+            appIcon: 'ic:twotone-folder',
             tooltip: 'Games',
             classes: ['games'],
             title: 'Games',
@@ -86,7 +89,7 @@ const Apps = (() => {
         container.append(appName);
         appName.textContent = name;
 
-        createTooltip(container, tooltip);
+        //createTooltip(container, tooltip);
 
         return container;
     }
@@ -107,29 +110,16 @@ const Apps = (() => {
     return { container }
 })();
 
-const isMobile = () => {
-    const mediaQuery = window.matchMedia('(max-width:775px)');
-    let mobile = mediaQuery.matches;
-    mediaQuery.addEventListener('change', e => {
-        if (e.matches) {
-            console.log('Mobile');
-        }
-        else {
-            console.log('Desktop');
-        }
-        mobile = e.matches;
-    })
-    return mobile;
-}
-
 export default (() => {
     const container = document.createElement('div');
     container.classList.add('desktop');
 
-    container.append(soundControl);
+    //container.append(soundControl);
     container.append(taskbar.container);
     container.append(Chat.container);
     container.append(Apps.container);
+
+    //dragWindow(container)
 
     return { container };
 })();

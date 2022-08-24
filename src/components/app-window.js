@@ -1,7 +1,7 @@
 import { format, set, sub } from "date-fns";
 import icon from "../functions/icon";
 import Modal from "./modal";
-import GinaResume from '../files/Gina_Henderson_Resume.pdf';
+import GinaResume from '../files/Gina Henderson Resume Web.pdf';
 import Diddit from '../images/diddit.png';
 import Rainey from '../images/rainey.png';
 import Minecraft from '../images/minecraft.png';
@@ -10,6 +10,7 @@ import GinaTharin from '../images/ginatharin.png';
 import Caffeine from '../images/caffeine.png';
 import GinaContact from '../images/GinaHenderson.jpg';
 import sendEmail from "../functions/sendEmail";
+import isMobile from "../functions/isMobile";
 
 function History() {
     const past = [];
@@ -106,7 +107,8 @@ const appWindow = (() => {
         const openFile = (url, type, filename) => {
             const file = generateFile(url, type, filename);
             setMainContent(file);
-            if (filename == 'none') hideHeader();
+            // if (filename == 'none') hideHeader();
+            if (isMobile()) hideHeader();
             else showHeader();
         };
 
@@ -198,7 +200,7 @@ const appWindow = (() => {
                         'mdi:checkbox-marked-outline',
                         '2022-07-09',
                     ),
-                    url: 'https://ginahenderson.me/to-do-list/',
+                    url: 'https://ginahenderson.me/diddit/',
                     type: 'text/html',
                     filename: 'Diddit',
                 },
@@ -229,7 +231,7 @@ const appWindow = (() => {
                     openFile(
                         file.url,
                         file.type,
-                        'none',
+                        file.filename,
                     );
                 })
                 container.append(file.thumbnail);
@@ -320,7 +322,8 @@ const appWindow = (() => {
         })();
         const trash = (() => {
             const container = document.createElement('div');
-            container.textContent = 'traaaaash'
+            container.classList.add('trash-bin');
+            container.innerHTML = 'How many programmers does it take to change a light bulb?<br><br> None – It\'s a hardware problem.'
 
             return {
                 inner: container,
@@ -335,7 +338,7 @@ const appWindow = (() => {
                 {
                     thumbnail: File(
                         'Documents',
-                        'jam:folder-f',
+                        'ic:twotone-folder',
                         '',
                         '1 item',
                     ),
@@ -344,7 +347,7 @@ const appWindow = (() => {
                 {
                     thumbnail: File(
                         'Web Apps',
-                        'jam:folder-f',
+                        'ic:twotone-folder',
                         '',
                         '3 items',
                     ),
@@ -353,7 +356,7 @@ const appWindow = (() => {
                 {
                     thumbnail: File(
                         'Games',
-                        'jam:folder-f',
+                        'ic:twotone-folder',
                         '',
                         '4 items',
                     ),
@@ -361,8 +364,16 @@ const appWindow = (() => {
                 },
                 {
                     thumbnail: File(
+                        'Websites',
+                        'wpf:globe-earth',
+                        '',
+                        '',
+                    )
+                },
+                {
+                    thumbnail: File(
                         'Recycling Bin',
-                        'jam:folder-f',
+                        'ic:twotone-folder',
                         '',
                         '1 item',
                     ),
@@ -413,6 +424,7 @@ const appWindow = (() => {
         const modal = Modal.create(
             ['file-explorer'],
             container,
+            'File Explorer',
         );
 
         const open = () => Modal.open(modal);
@@ -477,7 +489,7 @@ const appWindow = (() => {
             const diddit = content(
                 'diddit',
                 Diddit,
-                `<a href="https://ginahenderson.me/to-do-list" target="_blank">Diddit</a> is a CRUD to-do list app that utilizes local storage to maintain the user's unput. It also features UI customization features.`,
+                `<a href="https://ginahenderson.me/diddit" target="_blank">Diddit</a> is a CRUD to-do list app that utilizes local storage to maintain the user's unput. It also features UI customization features.`,
                 'Diddit',
                 'To-Do List Web App'
             );
@@ -710,15 +722,21 @@ const appWindow = (() => {
             const exit = icon('radix-icons:exit', ['browser-exit']);
             exit.title = 'Exit app';
             exit.addEventListener('click', () => close());
-            container.append(backButton, forwardButton, home, exit);
+            container.append(
+                backButton,
+                forwardButton,
+                home,
+            );
+            if (isMobile()) container.append(exit);
             return container;
         })();
 
         container.append(
             header.container,
             main,
-            footer,
         );
+        if (isMobile()) container.append(footer);
+        else (header.container.prepend(footer));
 
         const browserHistory = History();
 
@@ -747,6 +765,7 @@ const appWindow = (() => {
         const modal = Modal.create(
             ['browser'],
             container,
+            'My Work',
         );
 
         const open = () => Modal.open(modal);
@@ -939,6 +958,7 @@ const appWindow = (() => {
         const modal = Modal.create(
             ['contact-card'],
             container,
+            'Contact Me',
         );
 
         const open = () => Modal.open(modal);

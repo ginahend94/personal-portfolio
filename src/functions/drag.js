@@ -71,9 +71,10 @@ export default (page) => {
     }
 };
 
-export const dragModal = (modalContainer) => {
-    const dragElements = modalContainer.querySelectorAll('.modal');
-        dragElements.forEach(element => dragElement(element));
+export const dragWindow = (modalContainer) => {
+    const dragElements = modalContainer.querySelectorAll('.window');
+    dragElements.forEach(element => dragElement(element));
+    console.log(dragElements)
 
         function dragElement(modal) {
             var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -85,7 +86,9 @@ export const dragModal = (modalContainer) => {
                 // get the mouse cursor position at startup:
                 pos3 = e.clientX;
                 pos4 = e.clientY;
+                console.log(pos3, pos4)
                 modalContainer.onmouseup = closeDragElement;
+
                 // call a function whenever the cursor moves:
                 modalContainer.onmousemove = elementDrag;
             }
