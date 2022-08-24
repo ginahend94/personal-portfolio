@@ -1298,6 +1298,7 @@ form textarea {
     }
 
     .taskbar {
+        position: relative;
         width: 100%;
         border: solid 1px;
         bottom: 0;
@@ -1336,6 +1337,53 @@ form textarea {
     .start-button:hover .moon-logo {
         color:var(--accent-color);
     }
+
+    .bg {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        bottom:100%;
+        left:0;
+        z-index: 999999;
+        display: none;
+    }
+    .bg.open {
+        pointer-events: all;
+        display: block;
+    }
+
+    .taskbar-menu.open {
+        height:180px;
+        opacity: 1;
+        pointer-events: all;
+        z-index: 99999999999;
+    }
+    .taskbar-menu {
+        background-color: rgba(255, 255, 255, .9);
+        position: absolute;
+        bottom:100%;
+        font-size: 1.2rem;
+        padding: 10px;
+        overflow: hidden;
+        height: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition: .2s;
+    }
+    .taskbar-menu ul {
+        padding: 0;
+        margin: 0;
+    }
+    .taskbar-menu li {
+        list-style: none;
+        padding:5px 20px 5px 5px;
+        cursor: pointer;
+        transition: .3s;
+    }
+    .taskbar-menu li:hover {
+        background-color: var(--accent-2);
+    }
+
     .taskbar .start-button::after {
         content:'Menu';
         text-transform: uppercase;

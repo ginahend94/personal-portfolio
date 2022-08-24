@@ -364,6 +364,14 @@ const appWindow = (() => {
                 },
                 {
                     thumbnail: File(
+                        'Websites',
+                        'wpf:globe-earth',
+                        '',
+                        '',
+                    )
+                },
+                {
+                    thumbnail: File(
                         'Recycling Bin',
                         'ic:twotone-folder',
                         '',

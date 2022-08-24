@@ -1,6 +1,7 @@
 import icon from "../functions/icon";
 import { createTooltip } from "../functions/tooltip";
 import format from "date-fns/format";
+import appWindow from "../components/app-window";
 
 const Clock = (() => {
 
@@ -39,6 +40,63 @@ export const mute = (() => {
     }
 })()
 
+const Menu = (() => {
+    const bg = document.createElement('div');
+    bg.classList.add('bg');
+    const container = document.createElement('div');
+    container.classList.add('taskbar-menu');
+    const ul = document.createElement('ul');
+    container.append(ul);
+    bg.addEventListener('click', (e) => {
+        open();
+    })
+    const links = [
+        {
+            text: 'My Work',
+            function: appWindow.browser.open,
+        },
+        {
+            text: 'About Me',
+            function: appWindow.contact.open,
+        },
+        {
+            text: 'Resume',
+            function: () => {
+                appWindow.fileExplorer.open();
+                appWindow.fileExplorer.setMainContent(appWindow.fileExplorer.documents);
+            },
+        },
+        {
+            text: 'My GitHub',
+            function: () => window.open('https://github.com/ginahend94', '_blank'),
+        },
+        {
+            text: 'My LinkedIn',
+            function: () => window.open('https://linkedin.com/in/gina-henderson', '_blank'),
+        },
+    ]
+
+    links.forEach(link => {
+        const li = document.createElement('li');
+        li.textContent = link.text;
+        li.addEventListener('click', link.function);
+        li.classList.add('menu-link');
+        ul.append(li);
+    })
+
+    const open = () => {
+        container.classList.toggle('open');
+        if (container.classList.contains('open')) bg.classList.add('open');
+        else bg.classList.remove('open');
+    }
+
+    return {
+        container,
+        bg,
+        open,
+    }
+})()
+
 export default (() => {
 
     const container = document.createElement('div');
@@ -48,7 +106,11 @@ export default (() => {
     container.append(startButton);
     startButton.append(icon('bi:moon-stars-fill', ['moon-logo']));
     startButton.classList.add('start-button');
+    startButton.addEventListener('click', Menu.open);
     // createTooltip(startButton, 'Start');
+
+    container.append(Menu.bg);
+    container.append(Menu.container);
 
     const appTray = document.createElement('div');
     container.append(appTray);
