@@ -1324,6 +1324,7 @@ form textarea {
     .start-button {
         background-color: var(--accent-2);
         transition: .2s;
+        cursor: pointer;
     }
     .start-button .moon-logo {
         transition: .2s;
